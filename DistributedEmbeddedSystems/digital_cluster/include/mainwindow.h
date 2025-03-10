@@ -15,6 +15,7 @@
 #include <QApplication>
 #include "temperature.h"
 #include "autonomy.h"
+#include "lane.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -33,6 +34,7 @@ public:
     Battery *get_battery();
     Autonomy *get_autonomy();
     Temperature *get_temperature();
+    Lane*   get_lane();
 
 private slots:
     void connected();
@@ -42,6 +44,7 @@ private slots:
 private:
     Speed *left_dial = nullptr;
     Battery *right_dial = nullptr;
+    Lane *center_dial = nullptr;
     QMqttClient *client;
     Temperature *temp;
     Autonomy *autonomy;

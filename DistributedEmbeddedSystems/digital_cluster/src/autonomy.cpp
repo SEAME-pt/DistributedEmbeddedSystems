@@ -4,7 +4,8 @@
 Autonomy::Autonomy(QWidget *parent)
     : QWidget{parent}
 {
-    if (parent) {
+    if (parent)
+    {
         setMinimumSize(parent->width() * 0.3, parent->height() * 0.2); 
         setMaximumSize(parent->width() * 0.3, parent->height() * 0.2);
     }
@@ -13,7 +14,8 @@ Autonomy::Autonomy(QWidget *parent)
     layout = new QHBoxLayout();
     layout->setSpacing(width() * 0.02); 
     nb_sections = 8;
-    for (int i = 0; i < nb_sections; ++i) {
+    for (int i = 0; i < nb_sections; ++i)
+    {
         QWidget *section = new QWidget(this);
         section->setMinimumSize(width() * 0.1, height() * 0.3); //rectangular section
         section->setMaximumSize(width() * 0.1, height() * 0.3);
@@ -23,7 +25,6 @@ Autonomy::Autonomy(QWidget *parent)
     main_layout->addLayout(layout);
     label = new QLabel(this);
     set_autonomy(8);
-    std::cout << "autonomy constructor\n";
 }
 
 //destructor
@@ -36,22 +37,27 @@ Autonomy::~Autonomy()
 void Autonomy::set_autonomy(int aut)
 {
     int sections_color = static_cast<int>((aut / 10.0) * nb_sections);
-    for (int i = nb_sections -1; i >= 0; i--) {
-        if (i >= nb_sections - sections_color) {
+    for (int i = nb_sections -1; i >= 0; i--)
+    {
+        if (i >= nb_sections - sections_color)
+        {
             QColor section_color;
-            if (aut > 6) {
+            if (aut > 6)
+            {
                 int red = std::max(0, 120 - ((nb_sections - 1 - i) * (255 / nb_sections))); 
                 int green = std::min(255, 80 + ((nb_sections - 1 - i) * (20 / nb_sections))); 
                 int blue = std::min(255, 50 + ((nb_sections - 1 - i) * (50 / nb_sections)));  
                 section_color.setRgb(red, green, blue);
-            } else {
+            } else
+            {
                 int red = std::max(0, 120 - ((nb_sections - 1 - i) * (255 / nb_sections)));         
                 int green = std::min(255, 80 + ((nb_sections - 1 - i) * (20 / nb_sections))); 
                 int blue = std::min(255, 50 + ((nb_sections - 1 - i) * (50 / nb_sections)));
                 section_color.setRgb(red, green, blue);
             } 
             sections[i]->setStyleSheet(QString("background-color: %1").arg(section_color.name()));
-        } else {
+        } else
+        {
             QColor inactive_color(22, 32, 60); 
             sections[i]->setStyleSheet(QString("background-color: %1").arg(inactive_color.name()));
         }

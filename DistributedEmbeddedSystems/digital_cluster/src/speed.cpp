@@ -13,7 +13,6 @@
 Speed::Speed(QWidget *parent)
     : QWidget(parent), max(10), current_angle(0), target_angle(0), current(0)
 {
-    setStyleSheet("background-color: rgb(2, 1, 30);");
     if (parent) {
         setMinimumSize(parent->width() * 0.5, parent->height() * 0.7); 
         setMaximumSize(parent->width() * 0.5, parent->height() * 0.7);

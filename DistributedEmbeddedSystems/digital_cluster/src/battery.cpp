@@ -8,8 +8,8 @@
 Battery::Battery(QWidget *parent)
     : QWidget(parent), current(20), max(100), test_painter(nullptr)
 {
-    setStyleSheet("background-color: rgb(2, 1, 30);");
-    if (parent) {
+    if (parent)
+    {
         setMinimumSize(parent->width() * 0.5, parent->height() * 0.7); 
         setMaximumSize(parent->width() * 0.5, parent->height() * 0.7);
     }
@@ -35,10 +35,12 @@ void Battery::paintEvent(QPaintEvent *event)
 {
     TestPainter* painter = test_painter;
     QPainter real_painter(this);
-    if (!painter) {
+    if (!painter)
+    {
         painter = new QPainterCaller(&real_painter);
     }
-    if (test_painter) {
+    if (test_painter)
+    {
         painter->begin(this);
     }
     painter->setRenderHint(QPainter::Antialiasing, true);
@@ -55,7 +57,8 @@ void Battery::draw_arcs(TestPainter *painter)
     int centerX = width() / 2;
     int centerY = height() / 2;
     float segment_angle = 270.0f / segments; 
-    for (int i = 0; i < segments; ++i) {
+    for (int i = 0; i < segments; ++i)
+    {
         float t = static_cast<float>(i) / (segments);
         int alpha = static_cast<int>(120 * (1 - std::abs(2 * t - 1))); 
         QColor color(0, 52, 50, alpha); 
@@ -68,12 +71,14 @@ void Battery::draw_arcs(TestPainter *painter)
     segment_angle = angle_progress / segments;
     QColor start_color(0, 65, 74); 
     QColor end_color(0, 255, 200);
-    if (current < 40) {
+    if (current < 40)
+    {
         segments = 200;
         start_color = QColor(0, 65, 74); 
         end_color = QColor(0, 140, 150, 255); 
     }
-    for (int i = 0; i < segments; ++i) {
+    for (int i = 0; i < segments; ++i)
+    {
         float t = static_cast<float>(i) / segments; //factor (0 to 1)
         QColor color = QColor::fromRgbF(
             (1 - t) * start_color.redF() + t * end_color.redF(),  
@@ -88,7 +93,6 @@ void Battery::draw_arcs(TestPainter *painter)
     }
 }
 
-
 void Battery::draw_pixmap(TestPainter *painter)
 {
     painter->setPen(QPen(QColor(0, 250, 195)));
@@ -101,10 +105,13 @@ void Battery::draw_pixmap(TestPainter *painter)
     digital_path = QDir::cleanPath(digital_path);
     QPixmap pixmap(digital_path);  
     QImage img = pixmap.toImage();
-    for (int x = 0; x < img.width(); ++x) {
-        for (int y = 0; y < img.height(); ++y) {
+    for (int x = 0; x < img.width(); ++x)
+    {
+        for (int y = 0; y < img.height(); ++y)
+        {
             QColor color = img.pixelColor(x, y);
-            if (color == QColor(0, 0, 0)) {   //changing colors of icon
+            if (color == QColor(0, 0, 0))
+            {   //changing colors of icon
                 color.setRgb(0, 120, 100); 
                 img.setPixelColor(x, y, color);
             }
@@ -118,7 +125,6 @@ void Battery::draw_pixmap(TestPainter *painter)
     painter->drawPixmap(bottomRect, pixmap);
     draw_text(painter, bottomRect);
 }
-
 
 void Battery::draw_text(TestPainter *painter, QRect bottomRect)
 {

@@ -23,7 +23,7 @@ if(USE_SANITIZER)
   # set(SANITIZER_FLAGS -fsanitize=thread) # Uncomment this line if you want ThreadSanitizer instead:
 endif()
 
-include(FetchContent)
+include(FetchContent) #because of gmock i have to include gtest globally
 FetchContent_Declare(
 googletest
 URL https://github.com/google/googletest/archive/release-1.12.1.zip
@@ -60,58 +60,58 @@ if(BUILD_TESTS)
     enable_testing()
     add_test(NAME DigitalClusterTest COMMAND digital_cluster_test)
     
+else()
+    if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+        qt_add_executable(digital_cluster
+            MANUAL_FINALIZATION
+            ${SOURCES} 
+            ${HEADERS}
+            main.cpp
+            )
+            qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
     else()
-        if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-            qt_add_executable(digital_cluster
-                MANUAL_FINALIZATION
-                ${SOURCES} 
-                ${HEADERS}
+        if(ANDROID)
+            add_library(digital_cluster SHARED
+                ${SOURCES}
+            )
+            else()
+                add_executable(digital_cluster
+                ${SOURCES}
                 main.cpp
+                ${HEADERS}
                 )
-                qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
-        else()
-            if(ANDROID)
-                add_library(digital_cluster SHARED
-                    ${SOURCES}
-                )
-                else()
-                    add_executable(digital_cluster
-                    ${SOURCES}
-                    main.cpp
-                    ${HEADERS}
-                    )
-                    endif()
-            endif()
-            target_link_libraries(digital_cluster
-                gmock
-                Qt${QT_VERSION_MAJOR}::Widgets
-                Qt${QT_VERSION_MAJOR}::Mqtt
-            )
-            target_include_directories(digital_cluster PUBLIC
-                ${gmock_SOURCE_DIR}/include
-            )
-            if(USE_SANITIZER)
-                target_compile_options(digital_cluster PRIVATE ${SANITIZER_COMPILE_FLAGS})
-                target_link_options(digital_cluster PRIVATE ${SANITIZER_FLAGS})
-            endif()
-    
-        if(QT_VERSION_MAJOR EQUAL 6)
-            qt_finalize_executable(digital_cluster)
+                endif()
         endif()
-            
-        set_target_properties(digital_cluster PROPERTIES
-        MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-        MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-        MACOSX_BUNDLE TRUE
-        WIN32_EXECUTABLE TRUE
+        target_link_libraries(digital_cluster
+            gmock
+            Qt${QT_VERSION_MAJOR}::Widgets
+            Qt${QT_VERSION_MAJOR}::Mqtt
         )
-        include(GNUInstallDirs)
-        install(TARGETS digital_cluster
-            BUNDLE DESTINATION .
-            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-            )
-            if(QT_VERSION_MAJOR EQUAL 6)
-            qt_finalize_executable(digital_cluster)
+        target_include_directories(digital_cluster PUBLIC
+            ${gmock_SOURCE_DIR}/include
+        )
+        if(USE_SANITIZER)
+            target_compile_options(digital_cluster PRIVATE ${SANITIZER_COMPILE_FLAGS})
+            target_link_options(digital_cluster PRIVATE ${SANITIZER_FLAGS})
         endif()
+
+    if(QT_VERSION_MAJOR EQUAL 6)
+        qt_finalize_executable(digital_cluster)
     endif()
+        
+    set_target_properties(digital_cluster PROPERTIES
+    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+    MACOSX_BUNDLE TRUE
+    WIN32_EXECUTABLE TRUE
+    )
+    include(GNUInstallDirs)
+    install(TARGETS digital_cluster
+        BUNDLE DESTINATION .
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        )
+        if(QT_VERSION_MAJOR EQUAL 6)
+        qt_finalize_executable(digital_cluster)
+    endif()
+endif()

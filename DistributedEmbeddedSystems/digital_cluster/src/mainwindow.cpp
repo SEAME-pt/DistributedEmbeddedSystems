@@ -10,27 +10,33 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
      , client(new QMqttClient(this))
 {
-    setStyleSheet("background-color: rgb(2, 1, 30);");
+    setStyleSheet("background-color: rgb(0, 0, 20);");
     left_dial = new Speed(this);
     right_dial = new Battery(this);
+    center_dial = new Lane(this);
     QHBoxLayout* layout = new QHBoxLayout(); 
-    layout->addWidget(left_dial, 0,  Qt::AlignCenter); //Qt::AlignLeft |
-    layout->addWidget(right_dial, 0, Qt::AlignCenter); //Qt::AlignRight |
+    layout->addWidget(left_dial, 1,  Qt::AlignCenter); //Qt::AlignLeft |
+    // layout->addWidget(center_dial, 0);
+    
+    QVBoxLayout* centerLayout = new QVBoxLayout();
+    centerLayout->addSpacing(height() / 4); // This pushes the center_dial down
+    centerLayout->addWidget(center_dial, 1);
+    layout->addLayout(centerLayout, 1);
+    layout->addWidget(right_dial, 1, Qt::AlignCenter); //Qt::AlignRight |
     QVBoxLayout* mainlayout = new QVBoxLayout();
-    mainlayout->addLayout(layout, 1);
+    mainlayout->addLayout(layout, 2);
 
     temp = new Temperature(this);
     autonomy = new Autonomy(this);
     QHBoxLayout* layoutbar = new QHBoxLayout();
     layoutbar->setSpacing(width() / 20);
-    layoutbar->addWidget(temp, 0, Qt::AlignRight);
-    layoutbar->addWidget(autonomy, 0, Qt::AlignLeft);
+    layoutbar->addWidget(temp, 1, Qt::AlignRight);
+    layoutbar->addWidget(autonomy, 1, Qt::AlignLeft);
     mainlayout->addLayout(layoutbar, 1);
     QWidget* centralWidget = new QWidget(this);
     centralWidget->setLayout(mainlayout);
     setCentralWidget(centralWidget);
     init_mqtt();
-    std::cout << "mainwindow constructor\n";
 }
 
 //close main window at destruction
@@ -64,14 +70,16 @@ void    MainWindow::init_mqtt()
 void    MainWindow::connected()
 {
     QMqttTopicFilter topic("jetracer/speed");
-    auto subscription = client->subscribe(topic);
+    auto speed_sub = client->subscribe(topic);
     QMqttTopicFilter battery("jetracer/battery");
-    auto subscribe = client->subscribe(battery);
+    auto bat_sub = client->subscribe(battery);
     QMqttTopicFilter temp("jetracer/temperature");
-    auto sub = client->subscribe(temp);
+    auto temp_sub = client->subscribe(temp);
     QMqttTopicFilter autono("jetracer/autonomy");
-    auto subs = client->subscribe(autono);
-    if (!subscription || !sub | !subscribe || !subs) {  
+    auto autono_sub = client->subscribe(autono);
+    // QMqttTopicFilter lane("jetracer/lane");
+    // auto lane_sub = client->subscribe(lane);
+    if (!speed_sub || !bat_sub | !autono_sub || !temp_sub) {  // || !lane_sub
         qDebug() << "Failed to subscribe to topic";
     } else {
         qDebug() << "Successfully subscribed to topic";
@@ -88,24 +96,34 @@ void    MainWindow::message_received(const QByteArray &message, const QMqttTopic
         if (topic.name() == "jetracer/speed") {
             QMetaObject::invokeMethod(this, [this, msg]() {
                 left_dial->set_current(static_cast<float>(msg));
-            }, Qt::QueuedConnection);
+            }, Qt::AutoConnection);
         }
         else if (topic.name() == "jetracer/battery") {
             QMetaObject::invokeMethod(this, [this, msg]() {
                 right_dial->set_current(msg);
-            }, Qt::QueuedConnection);
+            }, Qt::AutoConnection);
         }
         else if (topic.name() == "jetracer/temperature") {
             QMetaObject::invokeMethod(this, [this, msg]() {
                 temp->set_temperature(msg);
-            }, Qt::QueuedConnection);
+            }, Qt::AutoConnection);
         }
         else if (topic.name() == "jetracer/autonomy") {
             QMetaObject::invokeMethod(this, [this, msg]() {
                 qDebug() << "Updating autonomy: " << msg;
                 autonomy->set_autonomy(msg);
-            }, Qt::QueuedConnection);
+            }, Qt::AutoConnection);
         }
+        // else if (topic.name() == "jetracer/lane") {
+        //     QMetaObject::invokeMethod(this, [this, msg]() {
+                // QByteArray payload = msg.payload();
+                // QDataStream stream(payload);
+                
+                // QVector<QPoint> newLeftLane, newRightLane;
+                // stream >> newLeftLane >> newRightLane;
+                // center_dial->updateLaneData(newLeftLane, newRightLane);
+            // }, Qt::AutoConnection);
+        // }
     } else {
         qDebug() << "Invalid data received";
     }
@@ -130,4 +148,9 @@ Autonomy*   MainWindow::get_autonomy()
 Temperature*   MainWindow::get_temperature()
 {
     return temp;
+}
+
+Lane*   MainWindow::get_lane()
+{
+    return center_dial;
 }
