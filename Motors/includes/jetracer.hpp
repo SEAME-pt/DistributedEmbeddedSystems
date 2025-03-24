@@ -45,9 +45,9 @@ private:
     void process_joystick();
 
     static constexpr int MAX_ANGLE_ = 180;
-    static constexpr int SERVO_LEFT_PWM_ = 240;
-    static constexpr int SERVO_CENTER_PWM_ = 420;
-    static constexpr int SERVO_RIGHT_PWM_ = 600;
+    static constexpr int SERVO_LEFT_PWM_ = 130;
+    static constexpr int SERVO_CENTER_PWM_ = 310;
+    static constexpr int SERVO_RIGHT_PWM_ = 490;
 
     int servo_addr_;
     int motor_addr_;
