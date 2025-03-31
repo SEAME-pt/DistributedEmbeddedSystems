@@ -59,3 +59,5 @@ docker-compose up
 <a href="https://www.flaticon.com/free-icons/ev" title="ev icons">Ev icons created by Vichanon Chaimsuk - Flaticon</a>
 
 <a href="https://www.flaticon.com/free-icons/auto" title="auto icons">Auto icons created by Ylivdesign - Flaticon</a>
+
+<div> Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
