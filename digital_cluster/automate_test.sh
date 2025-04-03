@@ -1,7 +1,7 @@
 #!/bin/bash
 export $(grep -v '^#' .env | xargs)
 set -e
-rm -rf build
+# rm -rf build
 mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON .. # -DUSE_SANITIZER=ON

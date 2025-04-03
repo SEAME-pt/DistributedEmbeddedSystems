@@ -34,7 +34,6 @@ void Lane::updateLaneData(const QVector<QPoint> &newLeftLane, const QVector<QPoi
     update(); 
 }
 
-
 void Lane::showNoLanePopup() {
     // pop_up = new QMessageBox(this);
     // pop_up->setText("No lanes detected, please take manual control.");
@@ -76,7 +75,6 @@ void Lane::showNoLanePopup() {
 
     // // Optionally, close the label after a certain time (e.g., 10 seconds)
     QTimer::singleShot(10000, pop_up, &QLabel::close);
-
 }
     
     
@@ -129,7 +127,7 @@ void Lane::paintEvent(QPaintEvent *event)
         }
     }
     pixmap = QPixmap::fromImage(img);
-    pixmap.save("../fonts_icon/dark2.png");
+    pixmap.save("../fonts_icon/dark.png");
     // QRect carRect(carX - pixmap.width() / 2, h * 0.5, pixmap.width(), pixmap.height());
     // QPixmap scaledCar = pixmap.scaled(w / 2, h / 2, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
     // painter.drawPixmap(carRect, scaledCar);
