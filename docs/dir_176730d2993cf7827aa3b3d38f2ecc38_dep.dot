@@ -1,0 +1,14 @@
+digraph "digital_cluster" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_176730d2993cf7827aa3b3d38f2ecc38 {
+    graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_176730d2993cf7827aa3b3d38f2ecc38.html"];
+    dir_176730d2993cf7827aa3b3d38f2ecc38 [shape=plaintext label="digital_cluster"];
+  dir_f3e84a3916c9548c162797339bef2624 [shape=box label="include" fillcolor="white" style="filled" URL="dir_f3e84a3916c9548c162797339bef2624.html"];
+  dir_9f03d2342deb2c3323530435d582a0ca [shape=box label="src" fillcolor="white" style="filled" URL="dir_9f03d2342deb2c3323530435d582a0ca.html"];
+  dir_8425c96d3af30de4cdad9c0dc307d83f [shape=box label="test" fillcolor="white" style="filled" URL="dir_8425c96d3af30de4cdad9c0dc307d83f.html"];
+  }
+  dir_9f03d2342deb2c3323530435d582a0ca->dir_f3e84a3916c9548c162797339bef2624 [headlabel="6", labeldistance=1.5 headhref="dir_000003_000002.html"];
+  dir_8425c96d3af30de4cdad9c0dc307d83f->dir_f3e84a3916c9548c162797339bef2624 [headlabel="5", labeldistance=1.5 headhref="dir_000004_000002.html"];
+}

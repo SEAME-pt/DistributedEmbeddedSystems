@@ -23,6 +23,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y doxygen graphviz
+          
+      - name: Create docs directory if it does not exist
+        run: mkdir -p docs
 
       # Gerar documentação
       - name: Generate Documentation
