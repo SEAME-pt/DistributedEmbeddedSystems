@@ -14,7 +14,6 @@ The Jetson communicates with the Raspberry via **mqtt**, with a **Cloud Broker**
 ## CAN Communication: Raspberry Pi and Arduino
 This project demonstrates how to establish a **CAN (Controller Area Network)** communication between an **Arduino** and a **Raspberry Pi**. The Arduino reads speed data from a sensor, calculates the speed, and sends it to the Raspberry Pi over a CAN bus using an **MCP2515 CAN module**. The Raspberry Pi processes and displays the received data using Python.
 
-
 ## Overview
 Controller Area Network (CAN) is a robust communication protocol commonly used in automotive and industrial applications. This project involves:
   Using an Arduino to send speed data via a CAN bus.
@@ -53,4 +52,3 @@ Controller Area Network (CAN) is a robust communication protocol commonly used i
 
 ### Raspberry Pi Setup
 (https://forums.raspberrypi.com/viewtopic.php?t=353451)
-
