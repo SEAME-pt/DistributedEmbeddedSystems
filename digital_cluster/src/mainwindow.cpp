@@ -30,8 +30,8 @@ MainWindow::MainWindow(QWidget *parent)
     autonomy = new Autonomy(this);
     QHBoxLayout* layoutbar = new QHBoxLayout();
     layoutbar->setSpacing(width() / 20);
-    layoutbar->addWidget(temp, 1, Qt::AlignRight);
-    layoutbar->addWidget(autonomy, 1, Qt::AlignLeft);
+    layoutbar->addWidget(temp, 0, Qt::AlignRight);
+    layoutbar->addWidget(autonomy, 0, Qt::AlignLeft);
     mainlayout->addLayout(layoutbar, 1);
     QWidget* centralWidget = new QWidget(this);
     centralWidget->setLayout(mainlayout);
@@ -48,22 +48,22 @@ MainWindow::~MainWindow()
 //connecting to mqtt via cloud or localhost or to jetracer via network
 void    MainWindow::init_mqtt()
 {
-    client->setHostname("972e24210b544ba49bfb9c1d3164d02b.s1.eu.hivemq.cloud"); //cloud
-    client->setPort(8883);
+    // client->setHostname("972e24210b544ba49bfb9c1d3164d02b.s1.eu.hivemq.cloud"); //cloud
+    // client->setPort(8883);
     QString user = qgetenv("user");
     client->setUsername(user); 
     QString pass = qgetenv("password");
     client->setPassword(pass); 
-    // client->setHostname("10.21.221.67"); //when on the same network
-    // client->setPort(1883); //cross compiling
-    //client->setHostname("127.0.0.1"); //when cross-compiling with jetracer
+    client->setHostname("10.21.221.67"); //when on the same network
+    client->setPort(1883); //cross compiling
+    // client->setHostname("127.0.0.1"); //when cross-compiling with jetracer
 
     connect(client, &QMqttClient::connected, this, &MainWindow::connected);
     connect(client, &QMqttClient::messageReceived, this, &MainWindow::message_received);
     connect(client, &QMqttClient::errorChanged, this, [](QMqttClient::ClientError error) {
         qDebug() << "MQTT Client error:" << error;
     });
-    client->connectToHostEncrypted(); //for cloud needs to be encrypted, for jetracer network or localhost its not encrypted
+    client->connectToHost(); //for cloud needs to be encrypted, for jetracer network or localhost its not encrypted
 }
 
 //subscribing to topic of mqtt
@@ -77,9 +77,9 @@ void    MainWindow::connected()
     auto temp_sub = client->subscribe(temp);
     QMqttTopicFilter autono("jetracer/autonomy");
     auto autono_sub = client->subscribe(autono);
-    // QMqttTopicFilter lane("jetracer/lane");
-    // auto lane_sub = client->subscribe(lane);
-    if (!speed_sub || !bat_sub | !autono_sub || !temp_sub) {  // || !lane_sub
+    QMqttTopicFilter lane("jetracer/lane_touch");
+    auto lane_sub = client->subscribe(lane);
+    if (!speed_sub || !bat_sub | !autono_sub || !temp_sub || !lane_sub) {  
         qDebug() << "Failed to subscribe to topic";
     } else {
         qDebug() << "Successfully subscribed to topic";
@@ -114,16 +114,13 @@ void    MainWindow::message_received(const QByteArray &message, const QMqttTopic
                 autonomy->set_autonomy(msg);
             }, Qt::AutoConnection);
         }
-        // else if (topic.name() == "jetracer/lane") {
-        //     QMetaObject::invokeMethod(this, [this, msg]() {
-                // QByteArray payload = msg.payload();
-                // QDataStream stream(payload);
-                
-                // QVector<QPoint> newLeftLane, newRightLane;
-                // stream >> newLeftLane >> newRightLane;
-                // center_dial->updateLaneData(newLeftLane, newRightLane);
-            // }, Qt::AutoConnection);
-        // }
+        else if (topic.name() == "jetracer/lane_touch") {
+            QMetaObject::invokeMethod(this, [this, msg]() {
+                qDebug() << "Updating lane: " << msg;
+                center_dial->set_res(msg);
+                center_dial->update();
+            }, Qt::AutoConnection);
+        }
     } else {
         qDebug() << "Invalid data received";
     }

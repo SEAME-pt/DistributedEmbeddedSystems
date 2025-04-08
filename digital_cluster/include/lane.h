@@ -12,16 +12,15 @@ class Lane: public QWidget {
     Q_OBJECT
 
 private:
-    QVector<QPoint> leftLane;  // Holds detected left lane points
-    QVector<QPoint> rightLane; // Holds detected right lane points
-    QMessageBox *pop_up;
+    // QMessageBox *pop_up;
+    int res;
 
 public:
     Lane(QWidget *parent = nullptr);
     ~Lane();
-    void updateLaneData(const QVector<QPoint> &newLeftLane, const QVector<QPoint> &newRightLane);
-    int checkLaneDeparture();
     void showNoLanePopup();
+    int   get_res();
+    void   set_res(int i);
 
 protected:
     void paintEvent(QPaintEvent *) override;
