@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <QMetaObject>
 #include <QDebug>
+#include <QTest>
 #include "../include/mainwindow.h"
 
 class Window : public testing::Test {
@@ -16,9 +17,10 @@ protected:
 };
 
 TEST_F(Window, Mqtt) {
+    QTest::qWait(1000);
     EXPECT_EQ(window->get_client()->state(), QMqttClient::Connected);
-    //check signal slot connection 
+    //check signal connection 
     const QMetaObject *meta = window->get_client()->metaObject();
-    EXPECT_TRUE(meta->indexOfSlot("connected()") >= 0);
-    EXPECT_TRUE(meta->indexOfSlot("message_received(const QByteArray&, const QMqttTopicName&)") >= 0);
+    EXPECT_TRUE(meta->indexOfSignal("connected()") >= 0);
+    EXPECT_TRUE(meta->indexOfSignal(QMetaObject::normalizedSignature("messageReceived(QByteArray,QMqttTopicName)")) >= 0);
 }

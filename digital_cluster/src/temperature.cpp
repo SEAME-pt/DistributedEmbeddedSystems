@@ -3,16 +3,16 @@
 Temperature::Temperature(QWidget *parent)
     : QWidget{parent}
 {
-    setMinimumSize(parent->width() * 0.25, parent->height() * 0.18); 
-    setMaximumSize(parent->width() * 0.25, parent->height() * 0.18);
+    setMinimumSize(parent->width() * 0.2, parent->height() * 0.15); 
+    setMaximumSize(parent->width() * 0.2, parent->height() * 0.15);
     main_layout = new QVBoxLayout(this);
     main_layout->setSpacing(height() * 0.05);
     layout = new QHBoxLayout();
-    layout->setSpacing(width() * 0.02); 
+    layout->setSpacing(width() * 0.016); 
     nb_sections = 6;
     for (int i = 0; i < nb_sections; ++i) {
         QWidget *section = new QWidget(this);
-        section->setFixedHeight(height() * 0.35);
+        section->setFixedHeight(height() * 0.3);
         section->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
         layout->addWidget(section);
         sections.append(section);

@@ -13,16 +13,15 @@ MainWindow::MainWindow(QWidget *parent)
     setStyleSheet("background-color: rgb(0, 0, 20);");
     left_dial = new Speed(this);
     right_dial = new Battery(this);
-    center_dial = new Lane(this);
     QHBoxLayout* layout = new QHBoxLayout(); 
-    layout->addWidget(left_dial, 1,  Qt::AlignCenter); //Qt::AlignLeft |
-    // layout->addWidget(center_dial, 0);
+    layout->addWidget(left_dial, 1,  Qt::AlignTop | Qt::AlignLeft); 
     
+    center_dial = new Lane(this);
     QVBoxLayout* centerLayout = new QVBoxLayout();
-    centerLayout->addSpacing(height() / 4); // This pushes the center_dial down
-    centerLayout->addWidget(center_dial, 1);
+    centerLayout->addWidget(center_dial, 0, Qt::AlignCenter);
     layout->addLayout(centerLayout, 1);
-    layout->addWidget(right_dial, 1, Qt::AlignCenter); //Qt::AlignRight |
+    
+    layout->addWidget(right_dial, 1, Qt::AlignTop | Qt::AlignRight);
     QVBoxLayout* mainlayout = new QVBoxLayout();
     mainlayout->addLayout(layout, 2);
 
@@ -30,8 +29,8 @@ MainWindow::MainWindow(QWidget *parent)
     autonomy = new Autonomy(this);
     QHBoxLayout* layoutbar = new QHBoxLayout();
     layoutbar->setSpacing(width() / 20);
-    layoutbar->addWidget(temp, 0, Qt::AlignRight);
-    layoutbar->addWidget(autonomy, 0, Qt::AlignLeft);
+    layoutbar->addWidget(temp, 0, Qt::AlignBottom | Qt::AlignRight);
+    layoutbar->addWidget(autonomy, 0, Qt::AlignBottom | Qt::AlignLeft);
     mainlayout->addLayout(layoutbar, 1);
     QWidget* centralWidget = new QWidget(this);
     centralWidget->setLayout(mainlayout);
@@ -48,8 +47,8 @@ MainWindow::~MainWindow()
 //connecting to mqtt via cloud or localhost or to jetracer via network
 void    MainWindow::init_mqtt()
 {
-    // client->setHostname("972e24210b544ba49bfb9c1d3164d02b.s1.eu.hivemq.cloud"); //cloud
-    // client->setPort(8883);
+    client->setHostname("972e24210b544ba49bfb9c1d3164d02b.s1.eu.hivemq.cloud"); //cloud
+    client->setPort(8883);
     QString user = qgetenv("user");
     client->setUsername(user); 
     QString pass = qgetenv("password");
@@ -81,9 +80,7 @@ void    MainWindow::connected()
     auto lane_sub = client->subscribe(lane);
     if (!speed_sub || !bat_sub | !autono_sub || !temp_sub || !lane_sub) {  
         qDebug() << "Failed to subscribe to topic";
-    } else {
-        qDebug() << "Successfully subscribed to topic";
-    }
+    } 
 }
 
 //receiving message and updating current
@@ -110,13 +107,11 @@ void    MainWindow::message_received(const QByteArray &message, const QMqttTopic
         }
         else if (topic.name() == "jetracer/autonomy") {
             QMetaObject::invokeMethod(this, [this, msg]() {
-                qDebug() << "Updating autonomy: " << msg;
                 autonomy->set_autonomy(msg);
             }, Qt::AutoConnection);
         }
         else if (topic.name() == "jetracer/lane_touch") {
             QMetaObject::invokeMethod(this, [this, msg]() {
-                qDebug() << "Updating lane: " << msg;
                 center_dial->set_res(msg);
                 center_dial->update();
             }, Qt::AutoConnection);
@@ -138,7 +133,7 @@ Battery*    MainWindow::get_battery()
 
 Autonomy*   MainWindow::get_autonomy()
 {
-    std::cout << "getting autonomy\n";
+    std::cout << "Getting autonomy\n";
     return autonomy;
 }
 

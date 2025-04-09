@@ -98,7 +98,6 @@ protected:
 private:
     int current;
     const int max;
-    // TestPainter* painter;
     int flag = 0;
     TestPainter* test_painter = nullptr;  // Pointer to an external painter for testing
 

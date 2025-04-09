@@ -25,6 +25,7 @@ Battery::~Battery()
 void Battery::set_current(int n)
 {
     current = n;
+    std::cout << "setting current called\n";
     update();
 }
 
@@ -43,12 +44,13 @@ void Battery::paintEvent(QPaintEvent *event)
     // }
     if (test_painter)
     {
-        // QPainter painter(this);
+        // // QPainter painter(this);
+        // TestPainter* painter = test_painter;
         // painter->begin(this);
-        QImage test_image(size(), QImage::Format_ARGB32);
-        QPainter test_painter(&test_image);
-        draw_arcs(&test_painter);
-        draw_pixmap(&test_painter);
+        // // QImage test_image(size(), QImage::Format_ARGB32);
+        // // QPainter test_painter(&test_image);
+        // draw_arcs(painter);
+        // draw_pixmap(painter);
     }
     else
     {
@@ -63,6 +65,7 @@ void Battery::paintEvent(QPaintEvent *event)
 
 void Battery::draw_arcs(QPainter *painter)
 {
+    std::cout << "draw_arcs called\n";
     int radius = qMin(width(), height()) / 2.5;  
     int segments = 300; 
     int centerX = width() / 2;
@@ -106,6 +109,7 @@ void Battery::draw_arcs(QPainter *painter)
 
 void Battery::draw_pixmap(QPainter *painter)
 {
+    std::cout << "draw pixmap called\n";
     painter->setPen(QPen(QColor(0, 250, 195)));
     painter->setFont(QFont("Digital-7", width() / 5, QFont::Bold));
     QRect currentTextRect = painter->boundingRect(rect(), Qt::AlignCenter, QString::number(current));
@@ -125,6 +129,7 @@ void Battery::draw_pixmap(QPainter *painter)
 
 void Battery::draw_text(QPainter *painter, QRect bottomRect)
 {
+    std::cout << "draw text called\n";
     QFont font("Calculator", width() / 16);
     painter->setFont(font);
     painter->setPen(QPen(QColor(0, 120, 100)));

@@ -4,7 +4,6 @@
 #include <QApplication>
 #include <QWidget>
 #include <QPainter>
-#include <QVector>
 #include <QTimer>
 #include <QMessageBox>
 
@@ -12,7 +11,7 @@ class Lane: public QWidget {
     Q_OBJECT
 
 private:
-    // QMessageBox *pop_up;
+    QWidget *popup;
     int res;
 
 public:
@@ -25,7 +24,6 @@ public:
 protected:
     void paintEvent(QPaintEvent *) override;
 
-public slots:
     
 };
 
