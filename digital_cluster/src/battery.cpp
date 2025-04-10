@@ -18,8 +18,6 @@ Battery::Battery(QWidget *parent)
 Battery::~Battery()
 {
     std::cout << "Remove battery" << std::endl;
-    // if (flag == 1)
-    //     delete painter;
 }
 
 void Battery::set_current(int n)
@@ -36,36 +34,30 @@ int Battery::get_current()
 
 void Battery::paintEvent(QPaintEvent *event)
 {
-    // painter = test_painter;
-    // if (!painter)
-    // {
-    //     flag = 1;
-    //     painter = new QPainterCaller(&real_painter);
-    // }
+    TestPainter* painter = test_painter;
+    QPainter real_painter(this);
+    if (!painter)
+    {
+        painter = new QPainterCaller(&real_painter);
+        flag = 1;
+    }
     if (test_painter)
     {
-        // // QPainter painter(this);
-        // TestPainter* painter = test_painter;
-        // painter->begin(this);
-        // // QImage test_image(size(), QImage::Format_ARGB32);
-        // // QPainter test_painter(&test_image);
-        // draw_arcs(painter);
-        // draw_pixmap(painter);
+        painter->begin(this);
     }
-    else
+    painter->setRenderHint(QPainter::Antialiasing, true);
+    draw_arcs(painter);
+    draw_pixmap(painter);
+    if (flag == 1 && painter)
     {
-        QPainter real_painter(this);
-        real_painter.setRenderHint(QPainter::Antialiasing, true);
-        draw_arcs(&real_painter);
-        draw_pixmap(&real_painter);
+        delete painter;  // Clean up if we allocated it
     }
-    // draw_arcs(painter);
-    // draw_pixmap(painter);
 }
 
-void Battery::draw_arcs(QPainter *painter)
+
+//fading arcs
+void Battery::draw_arcs(TestPainter *painter)
 {
-    std::cout << "draw_arcs called\n";
     int radius = qMin(width(), height()) / 2.5;  
     int segments = 300; 
     int centerX = width() / 2;
@@ -107,9 +99,8 @@ void Battery::draw_arcs(QPainter *painter)
     }
 }
 
-void Battery::draw_pixmap(QPainter *painter)
+void Battery::draw_pixmap(TestPainter *painter)
 {
-    std::cout << "draw pixmap called\n";
     painter->setPen(QPen(QColor(0, 250, 195)));
     painter->setFont(QFont("Digital-7", width() / 5, QFont::Bold));
     QRect currentTextRect = painter->boundingRect(rect(), Qt::AlignCenter, QString::number(current));
@@ -127,9 +118,8 @@ void Battery::draw_pixmap(QPainter *painter)
     draw_text(painter, bottomRect);
 }
 
-void Battery::draw_text(QPainter *painter, QRect bottomRect)
+void Battery::draw_text(TestPainter *painter, QRect bottomRect)
 {
-    std::cout << "draw text called\n";
     QFont font("Calculator", width() / 16);
     painter->setFont(font);
     painter->setPen(QPen(QColor(0, 120, 100)));

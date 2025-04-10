@@ -27,8 +27,8 @@ protected:
 
 TEST_F(BatteryT, TestBatteryState)
 {
-    // EXPECT_CALL(*painter, begin(testing::_)).WillOnce(testing::Return(true));
-    // EXPECT_CALL(*painter, end()).WillOnce(testing::Return(true));
+    EXPECT_CALL(*painter, begin(testing::_)).WillOnce(testing::Return(true));
+    EXPECT_CALL(*painter, end()).WillOnce(testing::Return(true));
     EXPECT_CALL(*painter, drawText(testing::_, testing::_, testing::_)).Times(testing::AtLeast(2));
     EXPECT_CALL(*painter, drawArc(testing::_, testing::_, testing::_, testing::_, testing::_, testing::_)).Times(testing::AtLeast(2));
     EXPECT_CALL(*painter, drawPixmap(testing::_, testing::_)).Times(testing::AtLeast(1));

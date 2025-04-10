@@ -121,7 +121,8 @@ void Lane::paintEvent(QPaintEvent *event)
         }
         if (popup) {
             popup->close();
-            popup = NULL;
+            popup->deleteLater();
+            popup = nullptr;
         }
     }
     painter.setPen(shadowPen);
