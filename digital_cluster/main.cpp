@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
     app.setOverrideCursor(QCursor(Qt::BlankCursor));
     MainWindow window;
     w = &window; 
+    w->setFixedSize(1280, 400);
     w->setWindowState(Qt::WindowFullScreen);
     w->show();
     std::signal(SIGINT, cleanup); 

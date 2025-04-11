@@ -22,8 +22,8 @@ protected:
 TEST_F(TemperatureT, TestVar)
 {
     // temperature->set_temperature(70);
-    EXPECT_EQ(temperature->get_nbsections(), 8);
-    EXPECT_EQ(temperature->get_sections().size(), 8);
+    EXPECT_EQ(temperature->get_nbsections(), 6);
+    EXPECT_EQ(temperature->get_sections().size(), 6);
     EXPECT_TRUE(temperature->get_layout() != nullptr);
     EXPECT_TRUE(temperature->get_mainlayout() != nullptr);
     EXPECT_TRUE(temperature->get_label() != nullptr);

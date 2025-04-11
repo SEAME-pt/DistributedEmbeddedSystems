@@ -13,16 +13,15 @@ MainWindow::MainWindow(QWidget *parent)
     setStyleSheet("background-color: rgb(0, 0, 20);");
     left_dial = new Speed(this);
     right_dial = new Battery(this);
-    center_dial = new Lane(this);
     QHBoxLayout* layout = new QHBoxLayout(); 
-    layout->addWidget(left_dial, 1,  Qt::AlignCenter); //Qt::AlignLeft |
-    // layout->addWidget(center_dial, 0);
+    layout->addWidget(left_dial, 1,  Qt::AlignTop | Qt::AlignLeft); 
     
+    center_dial = new Lane(this);
     QVBoxLayout* centerLayout = new QVBoxLayout();
-    centerLayout->addSpacing(height() / 4); // This pushes the center_dial down
-    centerLayout->addWidget(center_dial, 1);
+    centerLayout->addWidget(center_dial, 0, Qt::AlignCenter);
     layout->addLayout(centerLayout, 1);
-    layout->addWidget(right_dial, 1, Qt::AlignCenter); //Qt::AlignRight |
+    
+    layout->addWidget(right_dial, 1, Qt::AlignTop | Qt::AlignRight);
     QVBoxLayout* mainlayout = new QVBoxLayout();
     mainlayout->addLayout(layout, 2);
 
@@ -30,8 +29,8 @@ MainWindow::MainWindow(QWidget *parent)
     autonomy = new Autonomy(this);
     QHBoxLayout* layoutbar = new QHBoxLayout();
     layoutbar->setSpacing(width() / 20);
-    layoutbar->addWidget(temp, 1, Qt::AlignRight);
-    layoutbar->addWidget(autonomy, 1, Qt::AlignLeft);
+    layoutbar->addWidget(temp, 0, Qt::AlignBottom | Qt::AlignRight);
+    layoutbar->addWidget(autonomy, 0, Qt::AlignBottom | Qt::AlignLeft);
     mainlayout->addLayout(layoutbar, 1);
     QWidget* centralWidget = new QWidget(this);
     centralWidget->setLayout(mainlayout);
@@ -54,16 +53,16 @@ void    MainWindow::init_mqtt()
     client->setUsername(user); 
     QString pass = qgetenv("password");
     client->setPassword(pass); 
-    // client->setHostname("10.21.221.67"); //when on the same network
-    // client->setPort(1883); //cross compiling
-    //client->setHostname("127.0.0.1"); //when cross-compiling with jetracer
+    client->setHostname("10.21.221.67"); //when on the same network
+    client->setPort(1883); //cross compiling
+    // client->setHostname("127.0.0.1"); //when cross-compiling with jetracer
 
     connect(client, &QMqttClient::connected, this, &MainWindow::connected);
     connect(client, &QMqttClient::messageReceived, this, &MainWindow::message_received);
     connect(client, &QMqttClient::errorChanged, this, [](QMqttClient::ClientError error) {
         qDebug() << "MQTT Client error:" << error;
     });
-    client->connectToHostEncrypted(); //for cloud needs to be encrypted, for jetracer network or localhost its not encrypted
+    client->connectToHost(); //for cloud needs to be encrypted, for jetracer network or localhost its not encrypted
 }
 
 //subscribing to topic of mqtt
@@ -77,13 +76,11 @@ void    MainWindow::connected()
     auto temp_sub = client->subscribe(temp);
     QMqttTopicFilter autono("jetracer/autonomy");
     auto autono_sub = client->subscribe(autono);
-    // QMqttTopicFilter lane("jetracer/lane");
-    // auto lane_sub = client->subscribe(lane);
-    if (!speed_sub || !bat_sub | !autono_sub || !temp_sub) {  // || !lane_sub
+    QMqttTopicFilter lane("jetracer/lane_touch");
+    auto lane_sub = client->subscribe(lane);
+    if (!speed_sub || !bat_sub | !autono_sub || !temp_sub || !lane_sub) {  
         qDebug() << "Failed to subscribe to topic";
-    } else {
-        qDebug() << "Successfully subscribed to topic";
-    }
+    } 
 }
 
 //receiving message and updating current
@@ -110,20 +107,15 @@ void    MainWindow::message_received(const QByteArray &message, const QMqttTopic
         }
         else if (topic.name() == "jetracer/autonomy") {
             QMetaObject::invokeMethod(this, [this, msg]() {
-                qDebug() << "Updating autonomy: " << msg;
                 autonomy->set_autonomy(msg);
             }, Qt::AutoConnection);
         }
-        // else if (topic.name() == "jetracer/lane") {
-        //     QMetaObject::invokeMethod(this, [this, msg]() {
-                // QByteArray payload = msg.payload();
-                // QDataStream stream(payload);
-                
-                // QVector<QPoint> newLeftLane, newRightLane;
-                // stream >> newLeftLane >> newRightLane;
-                // center_dial->updateLaneData(newLeftLane, newRightLane);
-            // }, Qt::AutoConnection);
-        // }
+        else if (topic.name() == "jetracer/lane_touch") {
+            QMetaObject::invokeMethod(this, [this, msg]() {
+                center_dial->set_res(msg);
+                center_dial->update();
+            }, Qt::AutoConnection);
+        }
     } else {
         qDebug() << "Invalid data received";
     }
@@ -141,7 +133,7 @@ Battery*    MainWindow::get_battery()
 
 Autonomy*   MainWindow::get_autonomy()
 {
-    std::cout << "getting autonomy\n";
+    std::cout << "Getting autonomy\n";
     return autonomy;
 }
 
