@@ -1,0 +1,54 @@
+name: Deploy Executable to JetRacer
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: linux/arm64
+
+      - name: Set Up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker Image for ARM64
+        run: |
+          docker buildx build --platform linux/arm64 --progress=plain --load -t cross-env \
+            --build-arg password=${{ secrets.PASSWORD }} \
+            --build-arg user=${{ secrets.USER }} .
+
+      - name: Remove Old Local Executable
+        run: |
+          if [ -f "./digital_cluster" ]; then
+            echo "Removing existing executable from local machine"
+            rm ./digital_cluster
+          fi
+
+      - name: Copy Executable from Docker Container
+        run: |
+          echo "Copying new executable from Docker container"
+          docker cp $(docker create cross-env):/workspace/build/digital_cluster ./digital_cluster
+
+      - name: Set Up SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 10.21.221.67 >> ~/.ssh/id_rsa
+
+      - name: Deploy to JetRacer
+        run: |
+          echo "Removing existing executable from JetRacer"
+          ssh -i ~/.ssh/id_rsa jetracer@10.21.221.67 "rm -f /home/jetracer/qt_cluster/build/digital_cluster"
+          echo "Copying new executable to JetRacer"
+          scp -i ~/.ssh/id_rsa ./digital_cluster jetracer@10.21.221.67:/home/jetracer/qt_cluster/build
+          ssh -i ~/.ssh/id_rsa jetracer@10.21.221.67 "ls -lh /home/jetracer/qt_cluster/build/digital_cluster"

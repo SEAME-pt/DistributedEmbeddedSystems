@@ -88,9 +88,9 @@ public:
     ~Battery();
     void set_current(int n);
 
-    void draw_text(QPainter *painter, QRect bottomRect);
-    void draw_arcs(QPainter *activePainter);
-    void draw_pixmap(QPainter *activePainter);
+    void draw_text(TestPainter *painter, QRect bottomRect);
+    void draw_arcs(TestPainter *activePainter);
+    void draw_pixmap(TestPainter *activePainter);
     int get_current();
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -98,7 +98,6 @@ protected:
 private:
     int current;
     const int max;
-    // TestPainter* painter;
     int flag = 0;
     TestPainter* test_painter = nullptr;  // Pointer to an external painter for testing
 
