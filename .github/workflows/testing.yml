@@ -1,0 +1,36 @@
+name: Google Testing
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++ cmake qtbase5-dev qtbase5-private-dev libqt5widgets5 libqt5gui5 xvfb
+          git clone -b 5.15 https://code.qt.io/qt/qtmqtt.git ./qtmqtt 
+          cd qtmqtt 
+          qmake 
+          make 
+          sudo make install
+
+      - name: Build and Run GTests
+        env:
+            user: "${{ secrets.USER }}"
+            password: "${{ secrets.MQTT_PASSWORD }}"
+        run: |
+          cd digital_cluster
+          rm -rf build
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON -DUSE_SANITIZER=ON ..
+          make 
+          xvfb-run -a ./digital_cluster_test

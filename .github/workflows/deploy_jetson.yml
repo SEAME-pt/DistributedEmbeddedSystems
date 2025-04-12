@@ -1,0 +1,51 @@
+name: Deploy Executable to JetRacer
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: linux/arm64
+
+      - name: Set Up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker Image for ARM64
+        run: |
+          cd digital_cluster
+          docker buildx build --platform linux/arm64 --progress=plain --load -t cross-env \
+            --build-arg password=${{ secrets.PASSWORD }} \
+            --build-arg user=${{ secrets.USER }} .
+
+      - name: Remove Old Local Executable
+        run: |
+          cd digital_cluster
+          ls
+          pwd
+          if [ -f "./digital_cluster" ]; then
+            rm ./digital_cluster
+          fi
+
+      - name: Copy Executable from Docker Container
+        run: |
+          cd digital_cluster
+          docker cp $(docker create cross-env):/workspace/build/digital_cluster ./digital_cluster
+
+      - name: Deploy to JetRacer
+        run: |
+          cd digital_cluster
+          ls
+          pwd
+          rm -f /home/jetracer/qt_cluster/build/digital_cluster
+          cp ./digital_cluster /home/jetracer/qt_cluster/build/
+          ls -lh /home/jetracer/qt_cluster/build/digital_cluster

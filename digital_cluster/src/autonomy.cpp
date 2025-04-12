@@ -6,19 +6,19 @@ Autonomy::Autonomy(QWidget *parent)
 {
     if (parent)
     {
-        setMinimumSize(parent->width() * 0.3, parent->height() * 0.2); 
-        setMaximumSize(parent->width() * 0.3, parent->height() * 0.2);
+        setMinimumSize(parent->width() * 0.2, parent->height() * 0.15); 
+        setMaximumSize(parent->width() * 0.2, parent->height() * 0.15);
     }
     main_layout = new QVBoxLayout(this);
     main_layout->setSpacing(height() * 0.05);
     layout = new QHBoxLayout();
-    layout->setSpacing(width() * 0.02); 
-    nb_sections = 8;
+    layout->setSpacing(width() * 0.016); 
+    nb_sections = 6;
     for (int i = 0; i < nb_sections; ++i)
     {
         QWidget *section = new QWidget(this);
-        section->setMinimumSize(width() * 0.1, height() * 0.3); //rectangular section
-        section->setMaximumSize(width() * 0.1, height() * 0.3);
+        section->setFixedHeight(height() * 0.3);
+        section->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
         layout->addWidget(section);
         sections.append(section);
     }
@@ -63,8 +63,8 @@ void Autonomy::set_autonomy(int aut)
         }
     }
     label->setTextFormat(Qt::RichText); // Enable rich text
-    label->setText("<span style='font-family: Digital-7; font-size: 24px;'>" + QString::number(aut) + 
-        "</span><span style='font-family: Calculator; font-size: 24px;'> km</span>");
+    label->setText("<span style='font-family: Digital-7; font-size: 25px;'>" + QString::number(aut) + 
+        "</span><span style='font-family: Calculator; font-size: 25px;'> km</span>");
     label->setStyleSheet("color: rgb(0, 120, 140);");
     label->setAlignment(Qt::AlignTop | Qt::AlignRight);
     label->setContentsMargins(0, 0, 10, 0);

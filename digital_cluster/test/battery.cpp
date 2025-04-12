@@ -41,7 +41,7 @@ TEST_F(BatteryT, TestBatteryState)
     battery->set_current(50);
     EXPECT_EQ(battery->get_current(), 50); 
     QApplication::processEvents();
-    QTest::qWait(100);
+    QTest::qWait(500);
 }
 
 int main(int argc, char **argv) {

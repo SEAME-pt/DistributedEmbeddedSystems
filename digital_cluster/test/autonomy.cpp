@@ -22,8 +22,8 @@ protected:
 TEST_F(AutonomyT, TestVar)
 {
     // autonomy->set_autonomy(7);
-    EXPECT_EQ(autonomy->get_nbsections(), 8);
-    EXPECT_EQ(autonomy->get_sections().size(), 8);
+    EXPECT_EQ(autonomy->get_nbsections(), 6);
+    EXPECT_EQ(autonomy->get_sections().size(), 6);
     EXPECT_TRUE(autonomy->get_layout() != nullptr);
     EXPECT_TRUE(autonomy->get_mainlayout() != nullptr);
     EXPECT_TRUE(autonomy->get_label() != nullptr);
