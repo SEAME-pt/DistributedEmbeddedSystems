@@ -51,10 +51,10 @@ void    MainWindow::init_mqtt()
     client->setUsername(user); 
     QString pass = qgetenv("password");
     client->setPassword(pass); 
-    // client->setHostname("972e24210b544ba49bfb9c1d3164d02b.s1.eu.hivemq.cloud"); //cloud
-    // client->setPort(8883);
-    client->setHostname("10.21.221.67"); //when on the same network
-    client->setPort(1883); //cross compiling
+    client->setHostname("972e24210b544ba49bfb9c1d3164d02b.s1.eu.hivemq.cloud"); //cloud
+    client->setPort(8883);
+    // client->setHostname("10.21.221.67"); //when on the same network
+    // client->setPort(1883); //cross compiling
     // client->setHostname("127.0.0.1"); //when cross-compiling with jetracer
 
     connect(client, &QMqttClient::connected, this, &MainWindow::connected);
@@ -62,7 +62,7 @@ void    MainWindow::init_mqtt()
     connect(client, &QMqttClient::errorChanged, this, [](QMqttClient::ClientError error) {
         qDebug() << "MQTT Client error:" << error;
     });
-    client->connectToHost(); //for cloud needs to be encrypted, for jetracer network or localhost its not encrypted
+    client->connectToHostEncrypted(); //for cloud needs to be encrypted, for jetracer network or localhost its not encrypted
 }
 
 //subscribing to topic of mqtt
