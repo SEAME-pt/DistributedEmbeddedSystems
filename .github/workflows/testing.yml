@@ -1,7 +1,7 @@
 name: Google Testing
 
 on:
-  pull_request:
+  push:
     branches:
       - dev
 
