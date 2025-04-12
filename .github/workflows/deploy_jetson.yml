@@ -22,6 +22,7 @@ jobs:
 
       - name: Build Docker Image for ARM64
         run: |
+          cd digital_cluster
           docker buildx build --platform linux/arm64 --progress=plain --load -t cross-env \
             --build-arg password=${{ secrets.PASSWORD }} \
             --build-arg user=${{ secrets.USER }} .
