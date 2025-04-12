@@ -27,7 +27,12 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y g++ cmake 
+          sudo apt-get install -y g++ cmake qt5-default qtbase5-dev libqt5widgets5 libqt5gui5 
+          git clone -b 5.15 https://code.qt.io/qt/qtmqtt.git /qtmqtt 
+          cd /qtmqtt 
+          qmake 
+          make 
+          make install
 
       - name: Build and Run GTests
         run: |
