@@ -40,5 +40,5 @@ jobs:
       - name: Deploy to JetRacer
         run: |
           rm -f /home/jetracer/qt_cluster/build/digital_cluster
-          scp -i ./digital_cluster /home/jetracer/qt_cluster/build
+          cp ./digital_cluster /home/jetracer/qt_cluster/build/
           ls -lh /home/jetracer/qt_cluster/build/digital_cluster
