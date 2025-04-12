@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -29,26 +29,15 @@ jobs:
       - name: Remove Old Local Executable
         run: |
           if [ -f "./digital_cluster" ]; then
-            echo "Removing existing executable from local machine"
             rm ./digital_cluster
           fi
 
       - name: Copy Executable from Docker Container
         run: |
-          echo "Copying new executable from Docker container"
           docker cp $(docker create cross-env):/workspace/build/digital_cluster ./digital_cluster
-
-      - name: Set Up SSH Key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H 10.21.221.67 >> ~/.ssh/id_rsa
 
       - name: Deploy to JetRacer
         run: |
-          echo "Removing existing executable from JetRacer"
-          ssh -i ~/.ssh/id_rsa jetracer@10.21.221.67 "rm -f /home/jetracer/qt_cluster/build/digital_cluster"
-          echo "Copying new executable to JetRacer"
-          scp -i ~/.ssh/id_rsa ./digital_cluster jetracer@10.21.221.67:/home/jetracer/qt_cluster/build
-          ssh -i ~/.ssh/id_rsa jetracer@10.21.221.67 "ls -lh /home/jetracer/qt_cluster/build/digital_cluster"
+          rm -f /home/jetracer/qt_cluster/build/digital_cluster
+          scp -i ./digital_cluster /home/jetracer/qt_cluster/build
+          ls -lh /home/jetracer/qt_cluster/build/digital_cluster
