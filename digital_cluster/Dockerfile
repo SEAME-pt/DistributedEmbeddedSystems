@@ -47,7 +47,7 @@ WORKDIR /workspace
 
 #Copy local project files into the container
 COPY . /workspace
-COPY .env /workspace/.env
+COPY ./.env /workspace/.env
 
 #Build project
 RUN rm -rf build && mkdir -p build && cd build && \
