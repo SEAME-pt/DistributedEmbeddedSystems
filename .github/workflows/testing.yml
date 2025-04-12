@@ -24,10 +24,8 @@ jobs:
 
       - name: Build and Run GTests
         env:
-            MQTT_HOST: "972e24210b544ba49bfb9c1d3164d02b.s1.eu.hivemq.cloud"
-            MQTT_PORT: "8883"
-            MQTT_USERNAME: "${{ secrets.USER }}"
-            MQTT_PASSWORD: "${{ secrets.MQTT_PASSWORD }}"
+            user: "${{ secrets.USER }}"
+            password: "${{ secrets.MQTT_PASSWORD }}"
         run: |
           cd digital_cluster
           rm -rf build
