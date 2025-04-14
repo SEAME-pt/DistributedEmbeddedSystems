@@ -1,14 +1,4 @@
 #include "../include/speed.h"
-#include <QtMath>
-#include <QStyleOptionSlider>
-#include <QStylePainter>
-#include <QTimer>
-#include <QCoreApplication>
-#include <QDir>
-#include <QSettings>
-#include <QTimer>
-#include <iostream>
-#include <QDebug>
 
 Speed::Speed(QWidget *parent)
     : QWidget(parent), max(10), current_angle(60), target_angle(60), current(6)

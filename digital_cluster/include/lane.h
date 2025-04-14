@@ -6,6 +6,13 @@
 #include <QPainter>
 #include <QTimer>
 #include <QMessageBox>
+#include <QPropertyAnimation>
+#include <QDir>
+#include <QStyle>
+#include <QColor>
+#include <QLabel>
+#include <iostream>
+#include <QVBoxLayout>
 
 class Lane: public QWidget {
     Q_OBJECT
@@ -24,7 +31,6 @@ public:
 protected:
     void paintEvent(QPaintEvent *) override;
 
-    
 };
 
 #endif

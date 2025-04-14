@@ -30,7 +30,7 @@ make
 
 # Google Test
 
-To run gtest, execute the following:
+To view our gtests go to the **test** folder, to run them, execute the following:
 
 ```bash
 ./automate_test.sh

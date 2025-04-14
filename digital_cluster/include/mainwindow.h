@@ -13,6 +13,7 @@
 #include <QtMqtt/QMqttMessage>
 #include <QtMqtt>
 #include <QApplication>
+#include <unistd.h>
 #include "temperature.h"
 #include "autonomy.h"
 #include "lane.h"

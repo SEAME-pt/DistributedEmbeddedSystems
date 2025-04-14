@@ -1,13 +1,8 @@
 #include "./include/mainwindow.h"
-#include <QApplication>
 #include <QLocale>
-#include <QTimer>
-#include <unistd.h>
-#include <iostream>
 #include <csignal>
 
 MainWindow *w = nullptr;
-
 
 void cleanup(int sig) {
     if (w) {
@@ -15,7 +10,6 @@ void cleanup(int sig) {
     }
     QApplication::quit();  // Quit the application
 }
-
 
 int main(int argc, char *argv[])
 {

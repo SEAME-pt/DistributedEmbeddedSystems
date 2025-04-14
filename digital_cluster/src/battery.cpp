@@ -1,9 +1,4 @@
 #include "../include/battery.h"
-#include <iostream>
-#include <QPixmap>
-#include <QDebug>
-#include <QDir>
-#include <QCoreApplication>
 
 Battery::Battery(QWidget *parent)
     : QWidget(parent), current(20), max(100), test_painter(nullptr)

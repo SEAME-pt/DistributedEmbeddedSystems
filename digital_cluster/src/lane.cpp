@@ -1,17 +1,10 @@
 #include "lane.h"
-#include <QDir>
-#include <QStyle>
-#include <QColor>
-#include <QLabel>
-#include <iostream>
-#include <QVBoxLayout>
-
 
 Lane::Lane(QWidget *parent) : QWidget(parent), res(0)
 {
     if (parent) {
-        setMinimumSize(parent->width() * 0.18, parent->height() * 0.28); 
-        setMaximumSize(parent->width() * 0.18, parent->height() * 0.28);
+        setMinimumSize(parent->width() * 0.15, parent->height() * 0.25); 
+        setMaximumSize(parent->width() * 0.15, parent->height() * 0.25);
     }
 }
 
@@ -104,10 +97,10 @@ void Lane::paintEvent(QPaintEvent *event)
     QPen left(QBrush(laneGradient), 5, Qt::DashLine); 
     QPen right(QBrush(laneGradient), 5, Qt::DashLine);  
     if (res == 0) {
-        QPen leftPen(QBrush(redGradient), 5, Qt::DashLine); 
-        left = leftPen;
-        QPen rightPen(QBrush(redGradient), 5, Qt::DashLine); 
-        right = rightPen;
+        // QPen leftPen(QBrush(redGradient), 5, Qt::DashLine); 
+        // left = leftPen;
+        // QPen rightPen(QBrush(redGradient), 5, Qt::DashLine); 
+        // right = rightPen;
         showNoLanePopup();
     }
     else {
@@ -137,6 +130,7 @@ void Lane::paintEvent(QPaintEvent *event)
 void   Lane::set_res(int i)
 {
     res = i;
+    update();
 }
 
 int   Lane::get_res()

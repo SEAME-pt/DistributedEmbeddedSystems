@@ -1,9 +1,4 @@
 #include "../include/mainwindow.h"
-#include <iostream>
-#include <QDir>
-#include <QCoreApplication>
-#include <QFontDatabase>
-#include <unistd.h>
 
 //adding layouts and widgets to main window
 MainWindow::MainWindow(QWidget *parent)
@@ -113,7 +108,6 @@ void    MainWindow::message_received(const QByteArray &message, const QMqttTopic
         else if (topic.name() == "jetracer/lane_touch") {
             QMetaObject::invokeMethod(this, [this, msg]() {
                 center_dial->set_res(msg);
-                center_dial->update();
             }, Qt::AutoConnection);
         }
     } else {
