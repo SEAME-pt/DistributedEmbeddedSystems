@@ -8,7 +8,7 @@ Speed::Speed(QWidget *parent)
         setMaximumSize(parent->width() * 0.5, parent->height() * 0.7);
     }
     QString path = QCoreApplication::applicationDirPath();
-    QString digital_path = QDir(path).filePath("../fonts_icon/digital-7.ttf"); //change this dir, take out the ../ when sending to jetson
+    QString digital_path = QDir(path).filePath("../fonts_icon/digital-7.ttf");
     digital_path = QDir::cleanPath(digital_path);
     QString calculator_path = QDir(path).filePath("../fonts_icon/Calculator.ttf");
     calculator_path = QDir::cleanPath(calculator_path);

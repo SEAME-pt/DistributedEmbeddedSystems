@@ -18,7 +18,6 @@ Battery::~Battery()
 void Battery::set_current(int n)
 {
     current = n;
-    std::cout << "setting current called\n";
     update();
 }
 
@@ -102,7 +101,7 @@ void Battery::draw_pixmap(TestPainter *painter)
     painter->drawText(currentTextRect, Qt::AlignCenter, QString::number(current));
     
     QString path = QCoreApplication::applicationDirPath();
-    QString digital_path = QDir(path).filePath("../fonts_icon/battery.png"); //change this dir, take out the ../ when sending to jetson
+    QString digital_path = QDir(path).filePath("../fonts_icon/battery.png");
     digital_path = QDir::cleanPath(digital_path);
     QPixmap pixmap(digital_path);  
     pixmap = pixmap.scaled(width() / 10, width() / 10, Qt::KeepAspectRatio);

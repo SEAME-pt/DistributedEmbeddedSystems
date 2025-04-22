@@ -13,7 +13,7 @@ echo "Copying new executable from Docker container"
 docker cp $(docker create cross-env):/workspace/build/digital_cluster ./digital_cluster
 
 echo "Removing existing executable from JetRacer"
-ssh jetracer@10.21.221.67 "rm -f /home/jetracer/qt_cluster/build/digital_cluster"
+ssh jetracer@100.123.70.46 "rm -f /home/jetracer/qt_cluster/build/digital_cluster"
 
 echo "Copying new executable to Raspberry"
-scp ./digital_cluster jetracer@10.21.221.67:/home/jetracer/qt_cluster/build
+scp ./digital_cluster jetracer@100.123.70.46:/home/jetracer/qt_cluster/build

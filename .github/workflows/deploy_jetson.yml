@@ -44,6 +44,4 @@ jobs:
           cd digital_cluster
           rm -f /home/jetracer/qt_cluster/build/digital_cluster
           cp ./digital_cluster /home/jetracer/qt_cluster/build/
-          cp ./fonts_icon/alert.png /home/jetracer/qt_cluster/fonts_icon/
-          cp ./fonts_icon/dark5.png /home/jetracer/qt_cluster/fonts_icon/
           ls -lh /home/jetracer/qt_cluster/build/digital_cluster

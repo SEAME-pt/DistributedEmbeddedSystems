@@ -6,13 +6,13 @@ Autonomy::Autonomy(QWidget *parent)
 {
     if (parent)
     {
-        setMinimumSize(parent->width() * 0.2, parent->height() * 0.15); 
-        setMaximumSize(parent->width() * 0.2, parent->height() * 0.15);
+        setMinimumSize(parent->width() * 0.2, parent->height() * 0.16); 
+        setMaximumSize(parent->width() * 0.2, parent->height() * 0.16);
     }
     main_layout = new QVBoxLayout(this);
     main_layout->setSpacing(height() * 0.05);
     layout = new QHBoxLayout();
-    layout->setSpacing(width() * 0.016); 
+    layout->setSpacing(width() * 0.0155); 
     nb_sections = 6;
     for (int i = 0; i < nb_sections; ++i)
     {

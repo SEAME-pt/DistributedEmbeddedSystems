@@ -5,7 +5,8 @@
 MainWindow *w = nullptr;
 
 void cleanup(int sig) {
-    if (w) {
+    if (w)
+    {
         w->close();  // Close the main window
     }
     QApplication::quit();  // Quit the application

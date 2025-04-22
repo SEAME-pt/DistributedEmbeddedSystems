@@ -2,8 +2,7 @@
 
 //adding layouts and widgets to main window
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-     , client(new QMqttClient(this))
+    : QMainWindow(parent), client(new QMqttClient(this))
 {
     setStyleSheet("background-color: rgb(0, 0, 20);");
     left_dial = new Speed(this);
@@ -107,7 +106,7 @@ void    MainWindow::message_received(const QByteArray &message, const QMqttTopic
         }
         else if (topic.name() == "jetracer/lane_touch") {
             QMetaObject::invokeMethod(this, [this, msg]() {
-                center_dial->set_res(msg);
+                center_dial->set_lane(msg);
             }, Qt::AutoConnection);
         }
     } else {
