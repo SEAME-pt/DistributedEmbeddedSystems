@@ -11,4 +11,4 @@ cd build && cmake -DCMAKE_BUILD_TYPE=Debug .. && make
 # valgrind  
 # export QT_LOGGING_RULES="qt5.*=true;qt5.wayland=true"
 # GSETTINGS_BACKEND=memory QT_WAYLAND_DISABLE_KEYBOARD=1
-valgrind ./digital_cluster --leak-check=full --track-origins=yes  ./digital_cluster
+valgrind --leak-check=full --track-origins=yes  ./digital_cluster
