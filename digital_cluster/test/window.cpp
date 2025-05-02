@@ -5,9 +5,11 @@
 #include <QTest>
 #include "../include/mainwindow.h"
 
-class Window : public testing::Test {
-protected:
-    MainWindow* window;
+class Window : public testing::Test
+{
+    protected:
+        MainWindow* window;
+
     void SetUp() override {  // new before each test
         window = new MainWindow();
     }
@@ -16,7 +18,8 @@ protected:
     }
 };
 
-TEST_F(Window, Mqtt) {
+TEST_F(Window, Mqtt)
+{
     QTest::qWait(1000);
     EXPECT_EQ(window->get_client()->state(), QMqttClient::Connected);
     //check signal connection 

@@ -4,9 +4,10 @@
 
 class AutonomyT : public testing::Test
 {
-protected:
-    MainWindow* mw;
-    Autonomy* autonomy;
+    protected:
+        MainWindow* mw;
+        Autonomy* autonomy;
+        
     void SetUp() override
     {
         mw = new MainWindow();

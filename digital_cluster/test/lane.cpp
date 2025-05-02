@@ -1,17 +1,20 @@
 #include <gtest/gtest.h>
 #include <QDebug>
+#include <QTest>
+#include <QSignalSpy>
 #include "../include/mainwindow.h"
 
 class LaneT : public testing::Test
 {
-protected:
-    MainWindow* mw;
-    Lane* Lane;
+    protected:
+        MainWindow* mw;
+        Lane* lane;
+
     void SetUp() override
     {
         mw = new MainWindow();
         mw->show();
-        Lane = mw->get_lane();
+        lane = mw->get_lane();
     }
     void TearDown() override
     {
@@ -21,13 +24,43 @@ protected:
 
 TEST_F(LaneT, TestVar)
 {
-    Lane->set_res(0);
-    EXPECT_EQ(Lane->get_res(), 0);
-    Lane->set_res(82);
-    EXPECT_EQ(Lane->get_res(), 82);
-    Lane->set_res(76);
-    EXPECT_EQ(Lane->get_res(), 76);
-    // EXPECT_TRUE(Lane->get_layout() != nullptr);
-    // EXPECT_TRUE(Lane->get_mainlayout() != nullptr);
-    // EXPECT_TRUE(Lane->get_label() != nullptr);
+    lane->set_lane(0);
+    QTest::qWait(450);
+    EXPECT_EQ(lane->get_lane(), 0);
+    EXPECT_NE(lane->get_popup(), nullptr);
+    EXPECT_NEAR(lane->leftOpacity(), 0.0, 0.01);
+    EXPECT_NEAR(lane->rightOpacity(), 0.0, 0.01);
+
+    lane->set_lane(82);
+    QTest::qWait(500);
+    EXPECT_EQ(lane->leftOpacity(), 0.0);
+    EXPECT_NEAR(lane->rightOpacity(), 1.0, 0.01);
+    
+    lane->set_lane(76);
+    QTest::qWait(450);
+    EXPECT_NEAR(lane->leftOpacity(), 1.0, 0.01);
+    EXPECT_NEAR(lane->rightOpacity(), 0.0, 0.01);
+
+    lane->set_lane(2);
+    QTest::qWait(450);
+    EXPECT_NEAR(lane->leftOpacity(), 0.0, 0.01);
+    EXPECT_NEAR(lane->rightOpacity(), 0.0, 0.01);
+}
+
+TEST_F(LaneT, SetLaneEdgeCases) {
+    lane->set_lane(-1); 
+    QTest::qWait(450);
+    EXPECT_NEAR(lane->leftOpacity(), 0.0, 0.01);
+    EXPECT_NEAR(lane->rightOpacity(), 0.0, 0.01);
+
+    lane->set_lane(std::numeric_limits<int>::max()); // Large value
+    QTest::qWait(450);
+    EXPECT_NEAR(lane->leftOpacity(), 0.0, 0.01); 
+    EXPECT_NEAR(lane->rightOpacity(), 0.0, 0.01);
+}
+
+TEST_F(LaneT, DashOffsetAnimation) {
+    QTest::qWait(80);
+    EXPECT_EQ(lane->leftDashOffset(), 1.0); // After int(... + 1) % 5
+    EXPECT_EQ(lane->rightDashOffset(), 1.0);
 }

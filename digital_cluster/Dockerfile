@@ -30,11 +30,11 @@ RUN apt-get update && apt-get install -y \
     libqt5serialport5-dev:arm64 \
     libc6-dev:arm64 libglib2.0-dev:arm64 \
     libicu-dev:arm64 libpng-dev:arm64 libjpeg-dev:arm64 \
-    qtbase5-private-dev \
-    xvfb \
-    libx11-xcb1 \
-    libxcb1 \
-    libxkbcommon-x11-0 
+    qtbase5-private-dev 
+    # xvfb \
+    # libx11-xcb1 \
+    # libxcb1 \
+    # libxkbcommon-x11-0 
 
 RUN git clone -b 5.15 https://code.qt.io/qt/qtmqtt.git /qtmqtt && \
     cd /qtmqtt && \
@@ -60,5 +60,5 @@ RUN rm -rf build && mkdir -p build && cd build && \
     make VERBOSE=1 && \
     chmod +x ./digital_cluster
 
-CMD ["xvfb-run", "-a", "./digital_cluster"]
+CMD ["./digital_cluster"]
 # ENTRYPOINT ["./digital_cluster"]
