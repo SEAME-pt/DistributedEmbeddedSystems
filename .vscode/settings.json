@@ -60,7 +60,12 @@
         "thread": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp",
-        "format": "cpp"
+        "format": "cpp",
+        "cwctype": "cpp",
+        "set": "cpp",
+        "csignal": "cpp",
+        "deque": "cpp",
+        "semaphore": "cpp"
     },
     "cmake.sourceDirectory": "/home/matilde/Team05_SEA-ME_DES/DistributedEmbeddedSystems/digital_cluster",
     "C_Cpp.errorSquiggles": "disabled"

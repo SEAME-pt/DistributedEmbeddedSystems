@@ -25,6 +25,7 @@ Temperature::Temperature(QWidget *parent)
 
 Temperature::~Temperature()
 {
+    std::cout << "Remove Temperature" << std::endl;
 }
 
 void Temperature::set_text(int temp)

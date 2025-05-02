@@ -30,6 +30,7 @@ Autonomy::Autonomy(QWidget *parent)
 //destructor
 Autonomy::~Autonomy()
 {
+    std::cout << "Remove Autonomy" << std::endl;
     delete layout;
 }
 
@@ -63,11 +64,11 @@ void Autonomy::set_autonomy(int aut)
         }
     }
     label->setTextFormat(Qt::RichText); // Enable rich text
-    label->setText("<span style='font-family: Digital-7; font-size: 25px;'>" + QString::number(aut) + 
-        "</span><span style='font-family: Calculator; font-size: 25px;'> km</span>");
+    label->setText("<span style='font-family: Digital-7; font-size: 27px;'>" + QString::number(aut) + 
+        "</span><span style='font-family: Calculator; font-size: 27px;'> km</span>");
     label->setStyleSheet("color: rgb(0, 120, 140);");
     label->setAlignment(Qt::AlignTop | Qt::AlignRight);
-    label->setContentsMargins(0, 0, 10, 0);
+    label->setContentsMargins(0, 0, 5, 0);
     main_layout->addWidget(label);
 }
 

@@ -11,12 +11,13 @@ The Jetson communicates with the Raspberry via **mqtt**, with a **Cloud Broker**
 
 ![Communication structure](ADR/mqtt.png)
 
-## Documentation
+## Documentation and Results
 
-For more documentation on our Qt app, **Digital Cluster** go to [Digital Cluster README](/digital_cluster/README.md).
-And for more on our **CAN Communication, Arduino and Speed Sensor**, visit our [Arduino README](/arduino/README_arduino.md).
+For more documentation and visual results of our Qt app, go to [Digital Cluster README](/digital_cluster/README.md).
 
-To view a more detailed and structured documentation, click on:
+For more on our **CAN Communication, Arduino and Speed Sensor**, visit our [Arduino README](/arduino/README_arduino.md).
+
+To view a more detailed and structured documentation, click on
 [Doxygen Docs](https://seame-pt.github.io/DistributedEmbeddedSystems/).
 
 ### [DES Project 1 - PiRacer Assembly](https://github.com/SEA-ME/DES_PiRacer-Assembly)

@@ -1,7 +1,7 @@
 #include "../include/speed.h"
 
 Speed::Speed(QWidget *parent)
-    : QWidget(parent), max(10), current_angle(60), target_angle(60), current(6)
+    : QWidget(parent), max(10), current_angle(70), target_angle(75), current(6)
 {
     if (parent) {
         setMinimumSize(parent->width() * 0.5, parent->height() * 0.7); 
@@ -62,7 +62,7 @@ void Speed::paint_text(QPainter &painter) {
     QRect currentTextRect = painter.boundingRect(rect(), Qt::AlignCenter, QString::number(current));
     painter.drawText(currentTextRect, Qt::AlignCenter, QString::number(current));
     painter.setPen(QPen(Qt::darkCyan));
-    painter.setFont(QFont("Calculator", width() / 15));
+    painter.setFont(QFont("Calculator", width() / 14));
     QRect kmhRect = painter.boundingRect(rect(), Qt::AlignCenter, "km/h");
     int yPosition = currentTextRect.bottom() + kmhRect.height(); 
     int xPosition = (width() - kmhRect.width()) / 2;

@@ -12,7 +12,7 @@ Battery::Battery(QWidget *parent)
 
 Battery::~Battery()
 {
-    std::cout << "Remove battery" << std::endl;
+    std::cout << "Remove Battery" << std::endl;
 }
 
 void Battery::set_current(int n)
@@ -117,9 +117,7 @@ void Battery::draw_text(TestPainter *painter, QRect bottomRect)
     QFont font("Calculator", width() / 16);
     painter->setFont(font);
     painter->setPen(QPen(QColor(0, 120, 100)));
-    int yPos = bottomRect.bottom();  
-    int xPos = bottomRect.right() + 5; 
-    QRectF textRect(bottomRect.right() + 5, bottomRect.bottom() - 20, 30, 30);  // Adjust size as needed
+    QRectF textRect(bottomRect.right() + 5, bottomRect.bottom() - 23, 30, 30);  // Adjust size as needed
     int flags = Qt::AlignLeft | Qt::AlignVCenter;  // Adjust alignment flags as needed
     QString text = "%";
     painter->drawText(textRect, flags, text);

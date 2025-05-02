@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     QHBoxLayout* layout = new QHBoxLayout(); 
     layout->addWidget(left_dial, 1,  Qt::AlignTop | Qt::AlignLeft); 
     
-    center_dial = new Lane(this);
+    center_dial = new Object(this);
     QVBoxLayout* centerLayout = new QVBoxLayout();
     centerLayout->addWidget(center_dial, 0, Qt::AlignCenter);
     layout->addLayout(centerLayout, 1);
@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
 //close main window at destruction
 MainWindow::~MainWindow()
 {
+    std::cout << "Remove Window" << std::endl;
     close();
 }
 
@@ -72,7 +73,9 @@ void    MainWindow::connected()
     auto autono_sub = client->subscribe(autono);
     QMqttTopicFilter lane("jetracer/lane_touch");
     auto lane_sub = client->subscribe(lane);
-    if (!speed_sub || !bat_sub | !autono_sub || !temp_sub || !lane_sub) {  
+    // QMqttTopicFilter obj("jetracer/object");
+    // auto object = client->subscribe(obj);
+    if (!speed_sub || !bat_sub | !autono_sub || !temp_sub || !lane_sub) {  // || !object
         qDebug() << "Failed to subscribe to topic";
     } 
 }
@@ -80,7 +83,7 @@ void    MainWindow::connected()
 //receiving message and updating current
 void    MainWindow::message_received(const QByteArray &message, const QMqttTopicName &topic)
 {
-    qDebug() << "Message received on topic" << topic.name() << ":" << message;
+    qDebug() << topic.name() << ":" << message;
     bool ok;
     double msg = message.toDouble(&ok); 
     if (ok) {
@@ -109,6 +112,11 @@ void    MainWindow::message_received(const QByteArray &message, const QMqttTopic
                 center_dial->set_lane(msg);
             }, Qt::AutoConnection);
         }
+        // else if (topic.name() == "jetracer/object") {
+        //     QMetaObject::invokeMethod(this, [this, msg]() {
+        //         center_dial->set_object(msg);
+        //     }, Qt::AutoConnection);
+        // }
     } else {
         qDebug() << "Invalid data received";
     }
