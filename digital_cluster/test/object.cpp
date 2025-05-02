@@ -4,18 +4,18 @@
 #include <QTest>
 #include <gtest/gtest.h>
 
-class ObjectT : public testing::Test {
-protected:
-  MainWindow *mw;
-  Object *object;
+// class ObjectT : public testing::Test {
+// protected:
+//   MainWindow *mw;
+//   Object *object;
 
-  void SetUp() override {
-    mw = new MainWindow();
-    mw->show();
-    object = mw->get_lane();
-  }
-  void TearDown() override { delete mw; }
-};
+//   void SetUp() override {
+//     mw = new MainWindow();
+//     mw->show();
+//     object = mw->get_lane();
+//   }
+//   void TearDown() override { delete mw; }
+// };
 
 // TEST_F(ObjectT, TestVar) {
 //   object->set_object("0);
