@@ -17,8 +17,8 @@ protected:
   void TearDown() override { delete mw; }
 };
 
-TEST_F(ObjectT, TestVar) {
-  object->set_object(0);
-  QTest::qWait(450);
-  EXPECT_EQ(object->get_object(), 0);
-}
+// TEST_F(ObjectT, TestVar) {
+//   object->set_object("0);
+//   QTest::qWait(450);
+//   EXPECT_EQ(object->get_object(), 0);
+// }

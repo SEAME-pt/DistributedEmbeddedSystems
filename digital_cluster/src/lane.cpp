@@ -123,9 +123,7 @@ void Lane::set_lane(int i)
     if (lane && lane == i)
         return;
     lane = i;
-    // if (leftOpacityAnimation)
     leftOpacityAnimation->stop();
-    // if (rightOpacityAnimation)  
     rightOpacityAnimation->stop();
     qreal targetLeftOpacity = 0.0;
     qreal targetRightOpacity = 0.0;
@@ -140,7 +138,7 @@ void Lane::set_lane(int i)
         leftOpacityAnimation->setStartValue(m_leftOpacity);
         leftOpacityAnimation->setEndValue(targetLeftOpacity);
         leftOpacityAnimation->setEasingCurve(QEasingCurve::InOutSine);
-        leftOpacityAnimation->start(QAbstractAnimation::DeleteWhenStopped);
+        leftOpacityAnimation->start();
     }
     if (m_rightOpacity != targetRightOpacity)
     {
@@ -148,7 +146,7 @@ void Lane::set_lane(int i)
         rightOpacityAnimation->setStartValue(m_rightOpacity);
         rightOpacityAnimation->setEndValue(targetRightOpacity);
         rightOpacityAnimation->setEasingCurve(QEasingCurve::InOutSine);
-        rightOpacityAnimation->start(QAbstractAnimation::DeleteWhenStopped);
+        rightOpacityAnimation->start();
     }
     if (lane == 0)
         showNoLanePopup();
@@ -223,10 +221,16 @@ QWidget *Lane::get_popup()
 
 Lane::~Lane()
 {
-    // leftOpacityAnimation->stop();
-    // rightOpacityAnimation->stop();
-    // delete leftOpacityAnimation;
-    // delete rightOpacityAnimation;
+    if (leftOpacityAnimation) {
+        leftOpacityAnimation->stop();
+        delete leftOpacityAnimation;
+        leftOpacityAnimation = nullptr;
+    }
+    if (rightOpacityAnimation) {
+        rightOpacityAnimation->stop();
+        delete rightOpacityAnimation;
+        rightOpacityAnimation = nullptr;
+    }
     if (animationTimer)
     {
         animationTimer->stop();
