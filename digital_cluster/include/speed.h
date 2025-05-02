@@ -7,6 +7,16 @@
 #include <QBrush>
 #include <QTimer>
 #include <QFontDatabase>
+#include <QtMath>
+#include <QStyleOptionSlider>
+#include <QStylePainter>
+#include <QTimer>
+#include <QCoreApplication>
+#include <QDir>
+#include <QSettings>
+#include <QTimer>
+#include <iostream>
+#include <QDebug>
 
 class Speed : public QWidget
 {

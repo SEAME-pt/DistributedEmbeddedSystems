@@ -5,10 +5,11 @@
 
 class BatteryT : public testing::Test
 {
-protected:
-    MainWindow *mw;
-    Battery* battery;
-    MockPainter* painter;
+    protected:
+        MainWindow *mw;
+        Battery* battery;
+        MockPainter* painter;
+
     void SetUp() override
     {
         mw = new MainWindow();
@@ -44,7 +45,8 @@ TEST_F(BatteryT, TestBatteryState)
     QTest::qWait(500);
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     QApplication app(argc, argv);
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

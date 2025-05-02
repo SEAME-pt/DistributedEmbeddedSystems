@@ -6,6 +6,7 @@
 #include <QHBoxLayout>
 #include <QProgressBar>
 #include <QLabel>
+#include <iostream>
 
 class Temperature : public QWidget
 {

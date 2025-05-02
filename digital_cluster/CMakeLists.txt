@@ -1,4 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
+if(POLICY CMP0135)
+    cmake_policy(SET CMP0135 NEW)
+endif()
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)   # If using .ui files
 project(digital_cluster VERSION 0.1 LANGUAGES CXX)
@@ -25,8 +28,9 @@ endif()
 
 include(FetchContent) #because of gmock i have to include gtest globally
 FetchContent_Declare(
-googletest
-URL https://github.com/google/googletest/archive/release-1.12.1.zip
+    googletest
+    URL https://github.com/google/googletest/archive/release-1.12.1.zip
+    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
 )
 FetchContent_MakeAvailable(googletest)
 

@@ -5,9 +5,11 @@
 #include <QTimer>
 #include <QEventLoop>
 
-class SpeedT : public testing::Test {
-protected:
-    Speed* speed;
+class SpeedT : public testing::Test
+{
+    protected:
+        Speed* speed;
+
     void SetUp() override {  // new before each test
         speed = new Speed();
     }
@@ -16,7 +18,8 @@ protected:
     }
 };
 
-TEST_F(SpeedT, Current_target) {    
+TEST_F(SpeedT, Current_target)
+{    
     speed->set_current(3);
     EXPECT_FLOAT_EQ(speed->get_current(), static_cast<int>(3 * 3.6));
     float expected_target_angle = (speed->get_current() * 270.0f) / speed->get_max();
@@ -24,7 +27,8 @@ TEST_F(SpeedT, Current_target) {
     EXPECT_FLOAT_EQ(speed->get_target_angle(), expected_target_angle); //test target angle
 }
 
-TEST_F(SpeedT, Animation) {
+TEST_F(SpeedT, Animation)
+{
     speed->set_current(3);
     EXPECT_TRUE(speed->get_is_animating());
     QTimer timer;

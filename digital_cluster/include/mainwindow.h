@@ -12,10 +12,10 @@
 #include <QtMqtt/QMqttTopicFilter>
 #include <QtMqtt/QMqttMessage>
 #include <QtMqtt>
-#include <QApplication>
+#include <unistd.h>
 #include "temperature.h"
 #include "autonomy.h"
-#include "lane.h"
+#include "object.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -35,6 +35,7 @@ public:
     Autonomy *get_autonomy();
     Temperature *get_temperature();
     Lane*   get_lane();
+    Object*   get_object();
 
 private slots:
     void connected();
@@ -48,6 +49,6 @@ private:
     QMqttClient *client;
     Temperature *temp;
     Autonomy *autonomy;
-
 };
-#endif // MAINWINDOW_H
+
+#endif
