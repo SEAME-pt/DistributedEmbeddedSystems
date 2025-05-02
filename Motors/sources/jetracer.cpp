@@ -100,39 +100,6 @@ void JetCar::init_motors() {
     }
 }
 
-
-/*
-void JetCar::init_servo() {
-    servo_device_.write_byte(0x00, 0x06);
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-    servo_device_.write_byte(0x00, 0x10);
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-    servo_device_.write_byte(0xFE, 0x79);
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-    servo_device_.write_byte(0x01, 0x04);
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-    servo_device_.write_byte(0x00, 0x20);
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-}
-
-void JetCar::init_motors() {
-    motor_device_.write_byte(0x00, 0x20);
-
-    int prescale = static_cast<int>(std::floor(25000000.0 / 4096.0 / 100 - 1));
-    int oldmode = motor_device_.read_byte(0x00);
-    int newmode = (oldmode & 0x7F) | 0x10;
-
-    motor_device_.write_byte(0x00, newmode);
-    motor_device_.write_byte(0xFE, prescale);
-    motor_device_.write_byte(0x00, oldmode);
-    std::this_thread::sleep_for(std::chrono::milliseconds(5));
-    motor_device_.write_byte(0x00, oldmode | 0xA1);
-}
-*/
 void JetCar::set_steering(int angle) {
     angle = std::clamp(angle, -MAX_ANGLE_, MAX_ANGLE_);
 
@@ -203,7 +170,7 @@ void JetCar::smooth_steering(int target_angle, int increment) {
             current_angle_ = target_angle;
         }
         set_steering(current_angle_);
-        std::this_thread::sleep_for(std::chrono::milliseconds(0));
+        std::this_thread::sleep_for(std::chrono::milliseconds(20)); // sleep para evitar jitter (movimento rápido e irregular do carro).
     }
 }
 
