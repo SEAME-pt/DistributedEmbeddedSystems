@@ -44,10 +44,10 @@ private:
     void set_motor_pwm(int channel, int value);
     void process_joystick();
 
-    static constexpr int MAX_ANGLE_ = 180;
+    static constexpr int MAX_ANGLE_ = 140;
     static constexpr int SERVO_LEFT_PWM_ = 130;
-    static constexpr int SERVO_CENTER_PWM_ = 310;
-    static constexpr int SERVO_RIGHT_PWM_ = 490;
+    static constexpr int SERVO_CENTER_PWM_ = 270;
+    static constexpr int SERVO_RIGHT_PWM_ = 410;
 
     int servo_addr_;
     int motor_addr_;

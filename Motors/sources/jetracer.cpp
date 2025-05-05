@@ -114,6 +114,7 @@ void JetCar::set_steering(int angle) {
 
     set_servo_pwm(0, 0, pwm);
     current_angle_ = angle;
+	std::this_thread::sleep_for(std::chrono::milliseconds(20));
 }
 
 void JetCar::set_servo_pwm(int channel, int on_value, int off_value) {
@@ -170,7 +171,7 @@ void JetCar::smooth_steering(int target_angle, int increment) {
             current_angle_ = target_angle;
         }
         set_steering(current_angle_);
-        std::this_thread::sleep_for(std::chrono::milliseconds(20)); // sleep para evitar jitter (movimento rápido e irregular do carro).
+        // std::this_thread::sleep_for(std::chrono::milliseconds(20)); // sleep para evitar jitter (movimento rápido e irregular do carro).
     }
 }
 
