@@ -4,9 +4,10 @@
 
 class TemperatureT : public testing::Test
 {
-protected:
-    MainWindow* mw;
-    Temperature* temperature;
+    protected:
+        MainWindow* mw;
+        Temperature* temperature;
+        
     void SetUp() override
     {
         mw = new MainWindow();

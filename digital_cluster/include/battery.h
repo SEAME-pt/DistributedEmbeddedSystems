@@ -8,6 +8,11 @@
 #include <QTimer>
 #include <QPaintEvent>
 #include <gmock/gmock.h>
+#include <iostream>
+#include <QPixmap>
+#include <QDebug>
+#include <QDir>
+#include <QCoreApplication>
 
 //test class (mock)
 class TestPainter {

@@ -30,8 +30,6 @@ jobs:
       - name: Remove Old Local Executable
         run: |
           cd digital_cluster
-          ls
-          pwd
           if [ -f "./digital_cluster" ]; then
             rm ./digital_cluster
           fi
@@ -44,8 +42,6 @@ jobs:
       - name: Deploy to JetRacer
         run: |
           cd digital_cluster
-          ls
-          pwd
           rm -f /home/jetracer/qt_cluster/build/digital_cluster
           cp ./digital_cluster /home/jetracer/qt_cluster/build/
           ls -lh /home/jetracer/qt_cluster/build/digital_cluster
