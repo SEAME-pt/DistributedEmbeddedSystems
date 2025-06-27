@@ -3,7 +3,7 @@ name: Google Testing
 on:
   push:
     branches:
-      - qt_fixes
+      - dev
 
 jobs:
   run-tests:
