@@ -49,6 +49,9 @@ if(BUILD_TESTS)
     )
     set_source_files_properties(${SOURCES} PROPERTIES COMPILE_FLAGS "--coverage")
     set_source_files_properties(${SOURCES} PROPERTIES LINK_FLAGS "--coverage")
+    # Explicitly disable coverage for test files and moc files
+    set_source_files_properties(${TESTS} PROPERTIES COMPILE_FLAGS "-fno-profile-arcs -fno-test-coverage")
+    set_source_files_properties(digital_cluster_test_autogen/mocs_compilation.cpp PROPERTIES COMPILE_FLAGS "-fno-profile-arcs -fno-test-coverage")
     target_link_libraries(digital_cluster_test
         gmock
         gtest

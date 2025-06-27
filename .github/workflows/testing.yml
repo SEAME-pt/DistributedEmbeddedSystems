@@ -34,10 +34,9 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON -DUSE_SANITIZER=ON ..
           make 
           xvfb-run -a ./digital_cluster_test
-          lcov --capture --directory . --output-file coverage.info
-          lcov --remove coverage.info '*/include/*' '*/build/*' '*/test/*' '/usr/*' '*/googletest/*' --output-file coverage.info
+          lcov --capture --directory . --output-file coverage.info --ignore-errors mismatch,unused
+          lcov --remove coverage.info '*/build/*' '*/test/*' '/usr/*' --output-file coverage.info
           genhtml coverage.info --output-directory coverage_report
-          xdg-open coverage_report/index.html
 
       - name: Create docs directory if it does not exist
         run: mkdir -p docs
@@ -57,14 +56,19 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: doxygen-docs
-          path: docs/  # Adjust to your Doxygen output directory
+          path: docs  # Adjust to your Doxygen output directory
           # retention-days: 7
+
+      - name: Move coverage report into docs
+        run: |
+          mkdir -p docs/coverage
+          cp -r digital_cluster/build/coverage_report/* docs/coverage/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.PAT_TOKEN }}
-          publish_dir: ./
+          publish_dir: docs
           # destination_dir: ./
           force_orphan: true
           # user_name: github-actions
