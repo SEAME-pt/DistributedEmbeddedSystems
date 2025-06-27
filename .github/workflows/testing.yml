@@ -59,11 +59,16 @@ jobs:
           path: docs  # Adjust to your Doxygen output directory
           # retention-days: 7
 
+      - name: Move coverage report into docs
+        run: |
+          mkdir -p docs/coverage
+          cp -r digital_cluster/build/coverage_report/* docs/coverage/
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.PAT_TOKEN }}
-          publish_dir: .
+          publish_dir: docs
           # destination_dir: ./
           force_orphan: true
           # user_name: github-actions
