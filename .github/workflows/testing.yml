@@ -15,7 +15,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y g++ cmake qtbase5-dev qtbase5-private-dev libqt5widgets5 libqt5gui5 xvfb
+          sudo apt-get install -y doxygen graphviz lcov g++ cmake qtbase5-dev qtbase5-private-dev libqt5widgets5 libqt5gui5 xvfb
           git clone -b 5.15 https://code.qt.io/qt/qtmqtt.git ./qtmqtt 
           cd qtmqtt 
           qmake 
@@ -34,3 +34,45 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON -DUSE_SANITIZER=ON ..
           make 
           xvfb-run -a ./digital_cluster_test
+          lcov --capture --directory . --output-file coverage.info --ignore-errors mismatch,unused
+          lcov --remove coverage.info '*/build/*' '*/test/*' '/usr/*' --output-file coverage.info
+          genhtml coverage.info --output-directory coverage_report
+
+      - name: Create docs directory if it does not exist
+        run: mkdir -p docs
+
+      # Gerar documentação
+      - name: Generate Documentation
+        run: doxygen Doxyfile
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: digital_cluster/build/coverage_report/
+          # retention-days: 7
+
+      - name: Upload Doxygen Documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: doxygen-docs
+          path: docs  # Adjust to your Doxygen output directory
+          # retention-days: 7
+
+      - name: Move coverage report into docs
+        run: |
+          mkdir -p docs/coverage
+          cp -r digital_cluster/build/coverage_report/* docs/coverage/
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.PAT_TOKEN }}
+          publish_dir: docs
+          # destination_dir: ./
+          force_orphan: true
+          # user_name: github-actions
+          # user_email: github-actions@github.com
+          # keep_files: true
+          # exclude_assets: '**/*.md'
+

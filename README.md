@@ -20,6 +20,10 @@ For more on our **CAN Communication, Arduino and Speed Sensor**, visit our [Ardu
 To view a more detailed and structured documentation, click on
 [Doxygen Docs](https://seame-pt.github.io/DistributedEmbeddedSystems/).
 
+## Test Coverage Report
+
+To view our test coverage report access: [Test Coverage Report](https://seame-pt.github.io/DistributedEmbeddedSystems/coverage/index.html)
+
 ### [DES Project 1 - PiRacer Assembly](https://github.com/SEA-ME/DES_PiRacer-Assembly)
 
 ### [DES Project 2 - Instrument Cluster](https://github.com/SEA-ME/DES_Instrument-Cluster)
