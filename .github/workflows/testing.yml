@@ -35,7 +35,7 @@ jobs:
           make 
           xvfb-run -a ./digital_cluster_test
           lcov --capture --directory . --output-file coverage.info --ignore-errors mismatch,unused
-          lcov --remove coverage.info '*/build/*' '*/test/*' '/usr/*' '*/googletest/*' --output-file coverage.info
+          lcov --remove coverage.info '*/build/*' '*/test/*' '/usr/*' --output-file coverage.info
           genhtml coverage.info --output-directory coverage_report
           xdg-open coverage_report/index.html
 
