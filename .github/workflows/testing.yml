@@ -15,7 +15,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y g++ cmake qtbase5-dev qtbase5-private-dev libqt5widgets5 libqt5gui5 xvfb
+          sudo apt-get install -y lcov g++ cmake qtbase5-dev qtbase5-private-dev libqt5widgets5 libqt5gui5 xvfb
           git clone -b 5.15 https://code.qt.io/qt/qtmqtt.git ./qtmqtt 
           cd qtmqtt 
           qmake 
@@ -38,7 +38,6 @@ jobs:
           lcov --remove coverage.info '*/include/*' '*/build/*' '*/test/*' '/usr/*' '*/googletest/*' --output-file coverage.info
           genhtml coverage.info --output-directory coverage_report
           xdg-open coverage_report/index.html
-
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
