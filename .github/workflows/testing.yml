@@ -3,7 +3,7 @@ name: Google Testing
 on:
   push:
     branches:
-      - dev
+      - qt_fixes
 
 jobs:
   run-tests:
@@ -34,7 +34,7 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON -DUSE_SANITIZER=ON ..
           make 
           xvfb-run -a ./digital_cluster_test
-          lcov --capture --directory . --output-file coverage.info
+          lcov --capture --directory . --output-file coverage.info --ignore-errors mismatch
           lcov --remove coverage.info '*/include/*' '*/build/*' '*/test/*' '/usr/*' '*/googletest/*' --output-file coverage.info
           genhtml coverage.info --output-directory coverage_report
           xdg-open coverage_report/index.html

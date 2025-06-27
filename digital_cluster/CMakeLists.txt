@@ -19,9 +19,7 @@ find_library(PTHREAD_LIBRARY NAMES pthread)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Mqtt Test)
 include_directories(${CMAKE_SOURCE_DIR})
 # Enable coverage flags
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage -g -O0")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage -g -O0")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
+
 
 option(USE_SANITIZER "Enable sanitizer" OFF)
 
@@ -49,6 +47,9 @@ if(BUILD_TESTS)
     )
     set_source_files_properties(${SOURCES} PROPERTIES COMPILE_FLAGS "--coverage")
     set_source_files_properties(${SOURCES} PROPERTIES LINK_FLAGS "--coverage")
+    # Explicitly disable coverage for test files and moc files
+    set_source_files_properties(${TESTS} PROPERTIES COMPILE_FLAGS "-fno-profile-arcs -fno-test-coverage")
+    set_source_files_properties(digital_cluster_test_autogen/mocs_compilation.cpp PROPERTIES COMPILE_FLAGS "-fno-profile-arcs -fno-test-coverage")
     target_link_libraries(digital_cluster_test
         gmock
         gtest
