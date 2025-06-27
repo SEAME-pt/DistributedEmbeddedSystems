@@ -15,8 +15,13 @@ option(BUILD_TESTS "Build test targets" OFF)
 
 set(CMAKE_COLOR_MAKEFILE ON)
 find_package(QT NAMES Qt5 REQUIRED COMPONENTS Widgets Mqtt Test)
+find_library(PTHREAD_LIBRARY NAMES pthread)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Mqtt Test)
 include_directories(${CMAKE_SOURCE_DIR})
+# Enable coverage flags
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage -g -O0")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage -g -O0")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
 
 option(USE_SANITIZER "Enable sanitizer" OFF)
 
@@ -26,11 +31,11 @@ if(USE_SANITIZER)
   # set(SANITIZER_FLAGS -fsanitize=thread) # Uncomment this line if you want ThreadSanitizer instead:
 endif()
 
-include(FetchContent) #because of gmock i have to include gtest globally
+include(FetchContent)
 FetchContent_Declare(
     googletest
-    URL https://github.com/google/googletest/archive/release-1.12.1.zip
-    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG release-1.12.1  # Stable release
 )
 FetchContent_MakeAvailable(googletest)
 
@@ -42,6 +47,8 @@ if(BUILD_TESTS)
         ${HEADERS}
         ${TESTS}
     )
+    set_source_files_properties(${SOURCES} PROPERTIES COMPILE_FLAGS "--coverage")
+    set_source_files_properties(${SOURCES} PROPERTIES LINK_FLAGS "--coverage")
     target_link_libraries(digital_cluster_test
         gmock
         gtest

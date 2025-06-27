@@ -12,7 +12,6 @@ Lane::Lane(QWidget *parent) : QWidget(parent), lane(1)
     digital_path = QDir::cleanPath(digital_path);
     pixmap = QPixmap(digital_path);
     pixmap = pixmap.scaled(this->width() * 0.4, height() * 0.7, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-
     animationTimer = new QTimer(this);
     connect(animationTimer, &QTimer::timeout, this, [this]() {
         m_leftDashOffset = int(m_leftDashOffset + 1) % 30;

@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     QHBoxLayout* layout = new QHBoxLayout(); 
     layout->addWidget(left_dial, 1,  Qt::AlignTop | Qt::AlignLeft); 
     
-    center_dial = new Object(this);
+    center_dial = new Lane(this);
     QVBoxLayout* centerLayout = new QVBoxLayout();
     centerLayout->addWidget(center_dial, 0, Qt::AlignCenter);
     layout->addLayout(centerLayout, 1);
