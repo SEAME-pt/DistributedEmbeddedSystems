@@ -10,7 +10,7 @@ class Object : public Lane {
 
 private:
   QWidget *popup = nullptr;
-  std::vector<int> objects;
+  int object;
   QString digital_path;
 
 public:
@@ -18,8 +18,8 @@ public:
   ~Object();
   // void showObjectPopup();
   void setting_pens(int i, QPainter *painter);
-  std::vector<int> get_object();
-  void set_object(std::string str);
+  int get_object();
+  void set_object(int i);
 
 protected:
   void paintEvent(QPaintEvent *) override;
