@@ -37,8 +37,7 @@ jobs:
           lcov --capture --directory . --output-file coverage.info --ignore-errors mismatch,unused
           lcov --remove coverage.info '*/build/*' '*/test/*' '/usr/*' --output-file coverage.info
           genhtml coverage.info --output-directory coverage_report
-          xdg-open coverage_report/index.html
-
+          
       - name: Create docs directory if it does not exist
         run: mkdir -p docs
 
