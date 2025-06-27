@@ -39,16 +39,11 @@ jobs:
           genhtml coverage.info --output-directory coverage_report
           xdg-open coverage_report/index.html
 
-      - name: Upload Coverage Report
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-report
-          path: digital_cluster/build/coverage_report/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.PAT_TOKEN }}
           publish_dir: digital_cluster/build/coverage_report
           destination_dir: coverage
 
