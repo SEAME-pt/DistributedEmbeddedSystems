@@ -15,7 +15,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y lcov g++ cmake qtbase5-dev qtbase5-private-dev libqt5widgets5 libqt5gui5 xvfb
+          sudo apt-get install -y doxygen graphviz lcov g++ cmake qtbase5-dev qtbase5-private-dev libqt5widgets5 libqt5gui5 xvfb
           git clone -b 5.15 https://code.qt.io/qt/qtmqtt.git ./qtmqtt 
           cd qtmqtt 
           qmake 
@@ -39,10 +39,36 @@ jobs:
           genhtml coverage.info --output-directory coverage_report
           xdg-open coverage_report/index.html
 
+      - name: Create docs directory if it does not exist
+        run: mkdir -p docs
+
+      # Gerar documentação
+      - name: Generate Documentation
+        run: doxygen Doxyfile
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: digital_cluster/build/coverage_report/
+          # retention-days: 7
+
+      - name: Upload Doxygen Documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: doxygen-docs
+          path: docs/  # Adjust to your Doxygen output directory
+          # retention-days: 7
+
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.PAT_TOKEN }}
-          publish_dir: digital_cluster/build/coverage_report
-          destination_dir: coverage
+          publish_dir: ./
+          # destination_dir: ./
+          force_orphan: true
+          # user_name: github-actions
+          # user_email: github-actions@github.com
+          # keep_files: true
+          # exclude_assets: '**/*.md'
 
