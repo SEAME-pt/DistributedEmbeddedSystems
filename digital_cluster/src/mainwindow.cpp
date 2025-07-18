@@ -7,9 +7,10 @@ MainWindow::MainWindow(QWidget *parent)
     setStyleSheet("background-color: rgb(0, 0, 20);");
     left_dial = new Speed(this);
     right_dial = new Battery(this);
+    object = new Object(this);
     QHBoxLayout* layout = new QHBoxLayout(); 
     layout->addWidget(left_dial, 1,  Qt::AlignTop | Qt::AlignLeft); 
-    
+
     center_dial = new Lane(this);
     QVBoxLayout* centerLayout = new QVBoxLayout();
     centerLayout->addWidget(center_dial, 0, Qt::AlignCenter);
@@ -17,8 +18,14 @@ MainWindow::MainWindow(QWidget *parent)
     
     layout->addWidget(right_dial, 1, Qt::AlignTop | Qt::AlignRight);
     QVBoxLayout* mainlayout = new QVBoxLayout();
+    
+    QHBoxLayout* objectLayout = new QHBoxLayout();
+    objectLayout->addStretch();  // Push the widget to the right
+    object->setFixedSize(60, 60);  // or any size that fits your image
+    objectLayout->addWidget(object, 0, Qt::AlignTop | Qt::AlignRight);
+    mainlayout->addLayout(objectLayout, 0);
     mainlayout->addLayout(layout, 2);
-
+    
     temp = new Temperature(this);
     autonomy = new Autonomy(this);
     QHBoxLayout* layoutbar = new QHBoxLayout();
