@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     
     QHBoxLayout* objectLayout = new QHBoxLayout();
     objectLayout->addStretch();  // Push the widget to the right
-    object->setFixedSize(60, 60);  // or any size that fits your image
+    object->setFixedSize(50, 50);  // or any size that fits your image
     objectLayout->addWidget(object, 0, Qt::AlignTop | Qt::AlignRight);
     mainlayout->addLayout(objectLayout, 0);
     mainlayout->addLayout(layout, 2);
@@ -49,22 +49,22 @@ MainWindow::~MainWindow()
 //connecting to mqtt via cloud or localhost or to jetracer via network
 void    MainWindow::init_mqtt()
 {
-    client->setHostname("972e24210b544ba49bfb9c1d3164d02b.s1.eu.hivemq.cloud"); //cloud
-    client->setPort(8883);
+    // client->setHostname("972e24210b544ba49bfb9c1d3164d02b.s1.eu.hivemq.cloud"); //cloud
+    // client->setPort(8883);
     QString user = qgetenv("user");
     client->setUsername(user); 
     QString pass = qgetenv("password");
     client->setPassword(pass); 
     // client->setHostname("10.21.221.67"); //when on the same network
-    // client->setPort(1883); //cross compiling
-    // client->setHostname("127.0.0.1"); //when cross-compiling with jetracer
+    client->setPort(1883); //cross compiling
+    client->setHostname("127.0.0.1"); //when cross-compiling with jetracer
 
     connect(client, &QMqttClient::connected, this, &MainWindow::connected);
     connect(client, &QMqttClient::messageReceived, this, &MainWindow::message_received);
     connect(client, &QMqttClient::errorChanged, this, [](QMqttClient::ClientError error) {
         qDebug() << "MQTT Client error:" << error;
     });
-    client->connectToHostEncrypted(); //for cloud needs to be encrypted, for jetracer network or localhost its not encrypted
+    client->connectToHost(); //for cloud needs to be encrypted, for jetracer network or localhost its not encrypted
 }
 
 //subscribing to topic of mqtt
@@ -153,4 +153,9 @@ Temperature*   MainWindow::get_temperature()
 Lane*   MainWindow::get_lane()
 {
     return center_dial;
+}
+
+Object*   MainWindow::get_object()
+{
+    return object;
 }

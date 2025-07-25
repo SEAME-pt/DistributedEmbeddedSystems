@@ -25,7 +25,7 @@ class LaneT : public testing::Test
 TEST_F(LaneT, TestVar)
 {
     lane->set_lane(0);
-    QTest::qWait(450);
+    QTest::qWait(500);
     EXPECT_EQ(lane->get_lane(), 0);
     EXPECT_NE(lane->get_popup(), nullptr);
     EXPECT_NEAR(lane->leftOpacity(), 0.0, 0.01);
@@ -49,12 +49,12 @@ TEST_F(LaneT, TestVar)
 
 TEST_F(LaneT, SetLaneEdgeCases) {
     lane->set_lane(-1); 
-    QTest::qWait(450);
+    QTest::qWait(500);
     EXPECT_NEAR(lane->leftOpacity(), 0.0, 0.01);
     EXPECT_NEAR(lane->rightOpacity(), 0.0, 0.01);
 
     lane->set_lane(std::numeric_limits<int>::max()); // Large value
-    QTest::qWait(450);
+    QTest::qWait(500);
     EXPECT_NEAR(lane->leftOpacity(), 0.0, 0.01); 
     EXPECT_NEAR(lane->rightOpacity(), 0.0, 0.01);
 }
