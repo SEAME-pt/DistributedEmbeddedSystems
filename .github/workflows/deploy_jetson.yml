@@ -39,7 +39,7 @@ jobs:
         run: |
           cd digital_cluster
           docker cp $(docker create cross-env):/workspace/build/digital_cluster ./digital_cluster
-          docker cp $(docker create cross-env):/workspace/fonts_icon ./fonts_icon
+   
 
 
       - name: Deploy to JetRacer
@@ -47,4 +47,6 @@ jobs:
           cd digital_cluster
           rm -f /home/jetracer/qt_cluster/build/digital_cluster
           cp ./digital_cluster /home/jetracer/qt_cluster/build/
+          cp -r ./fonts_icon /home/jetracer/qt_cluster/
           ls -lh /home/jetracer/qt_cluster/build/digital_cluster
+          ls -lh /home/jetracer/qt_cluster/fonts_icon
