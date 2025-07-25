@@ -46,6 +46,7 @@ private:
     Speed *left_dial = nullptr;
     Battery *right_dial = nullptr;
     Lane *center_dial = nullptr;
+    Object *object = nullptr;
     QMqttClient *client;
     Temperature *temp;
     Autonomy *autonomy;

@@ -5,19 +5,18 @@
 #include <string>
 #include <vector>
 
-class Object : public Lane {
+class Object : public QWidget {
   Q_OBJECT
 
 private:
   QWidget *popup = nullptr;
   int object;
-  QString digital_path;
+  QString speed50_path;
+  QString speed80_path;
 
 public:
   Object(QWidget *parent = nullptr);
   ~Object();
-  // void showObjectPopup();
-  void setting_pens(int i, QPainter *painter);
   int get_object();
   void set_object(int i);
 
