@@ -21,7 +21,7 @@ void Object::paintEvent(QPaintEvent *event)
         pixmap.load(speed80_path);
     }
     if (!pixmap.isNull()) {
-        QPixmap scaled = pixmap.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        QPixmap scaled = pixmap.scaled(55, 55, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         painter.drawPixmap(0, 0, scaled);  //  margin
     }
     else {

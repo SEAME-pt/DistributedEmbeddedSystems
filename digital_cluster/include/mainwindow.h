@@ -34,8 +34,8 @@ public:
     Battery *get_battery();
     Autonomy *get_autonomy();
     Temperature *get_temperature();
-    Lane*   get_lane();
     Object*   get_object();
+    Lane*   get_lane();
 
 private slots:
     void connected();
