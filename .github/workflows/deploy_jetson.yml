@@ -27,6 +27,7 @@ jobs:
             --build-arg password=${{ secrets.PASSWORD }} \
             --build-arg user=${{ secrets.USER }} .
 
+
       - name: Remove Old Local Executable
         run: |
           cd digital_cluster
@@ -38,6 +39,8 @@ jobs:
         run: |
           cd digital_cluster
           docker cp $(docker create cross-env):/workspace/build/digital_cluster ./digital_cluster
+          docker cp $(docker create cross-env):/workspace/fonts_icon ./fonts_icon
+
 
       - name: Deploy to JetRacer
         run: |
