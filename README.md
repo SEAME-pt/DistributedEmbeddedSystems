@@ -1,3 +1,6 @@
+# Digital Cluster
+
+![Digital Cluster](/digital_cluster/results/cluster.png)
 
 ## Project Architecture
 

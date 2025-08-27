@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "random": "cpp",
-        "qapplication": "cpp",
-        "algorithm": "cpp",
-        "typeinfo": "cpp",
-        "chrono": "cpp"
-    }
-}

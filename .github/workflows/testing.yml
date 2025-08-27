@@ -43,7 +43,7 @@ jobs:
 
       # Gerar documentação
       - name: Generate Documentation
-        run: doxygen Doxyfile
+        run: cd doxyfiles && doxygen Doxyfile
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v4
