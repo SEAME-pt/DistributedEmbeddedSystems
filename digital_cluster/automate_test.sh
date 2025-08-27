@@ -1,13 +1,12 @@
 #!/bin/bash
 export $(grep -v '^#' .env | xargs)
 set -e
-# rm -rf build
-# mkdir build
+rm -rf build
+mkdir build
 cd build
-cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON .. # -DUSE_SANITIZER=ON
+cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON ..
 make 
 LD_PRELOAD=/lib/x86_64-linux-gnu/libpthread.so.0 ./digital_cluster_test
-# gdb --args ./digital_cluster_test
 
 # lcov --capture --directory . --output-file coverage.info 
 # lcov --remove coverage.info '*/build/*' '*/test/*' '/usr/*' '*/googletest/*' --output-file coverage.info

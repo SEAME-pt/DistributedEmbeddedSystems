@@ -43,3 +43,15 @@ TEST_F(Window, Mqtt)
     EXPECT_EQ(window->get_object()->get_object(), 1); // speed_80
 
 }
+
+int main(int argc, char **argv)
+{
+    QApplication app(argc, argv);
+    ::testing::InitGoogleTest(&argc, argv);
+    int ret = RUN_ALL_TESTS();
+
+    // Gracefully exit Qt after tests are done
+    QTimer::singleShot(0, &app, &QApplication::quit);
+
+    return ret;
+}

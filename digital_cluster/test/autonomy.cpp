@@ -28,4 +28,5 @@ TEST_F(AutonomyT, TestVar)
     EXPECT_TRUE(autonomy->get_layout() != nullptr);
     EXPECT_TRUE(autonomy->get_mainlayout() != nullptr);
     EXPECT_TRUE(autonomy->get_label() != nullptr);
+    // QApplication::quit()
 }

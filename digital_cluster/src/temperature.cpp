@@ -3,24 +3,31 @@
 Temperature::Temperature(QWidget *parent)
     : QWidget{parent}
 {
-    setMinimumSize(parent->width() * 0.2, parent->height() * 0.16); 
-    setMaximumSize(parent->width() * 0.2, parent->height() * 0.16);
-    main_layout = new QVBoxLayout(this);
-    main_layout->setSpacing(height() * 0.05);
     layout = new QHBoxLayout();
-    layout->setSpacing(width() * 0.0155); 
+    main_layout = new QVBoxLayout(this);
+    label = new QLabel(this);
+
+    // setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    label->setAlignment(Qt::AlignCenter);
+    label->setMinimumWidth(120);
+    main_layout->setSpacing(10); 
+    main_layout->setContentsMargins(0, 0, 0, 0); // Remove margins for precise control
+
+    layout->setSpacing(2); 
+    layout->setContentsMargins(0, 0, 0, 0);
+
     nb_sections = 6;
     for (int i = 0; i < nb_sections; ++i) {
         QWidget *section = new QWidget(this);
-        section->setFixedHeight(height() * 0.3);
-        section->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        section->setFixedSize(20, 30);
+        // section->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         layout->addWidget(section);
         sections.append(section);
     }
+
     main_layout->addLayout(layout);
-    label = new QLabel(this);
     set_temperature(50);
-    setLayout(main_layout); //setting layout for qwidget (no need to delete them)
+    main_layout->addWidget(label); // Ensure label is added to the layout
 }
 
 Temperature::~Temperature()
@@ -31,13 +38,12 @@ Temperature::~Temperature()
 void Temperature::set_text(int temp)
 {
     label->setTextFormat(Qt::RichText);
-    label->setText("<span style='font-family: Noto Sans; font-size: 22px; color: rgb(0, 120, 140);'>🌡️&nbsp;</span>"
+    label->setText("<span style='font-family: Noto Sans; font-size: 20px; color: rgb(0, 120, 140);'>🌡️&nbsp;</span>"
         "<span style='font-family: Digital-7; font-size: 25px; color: rgb(0, 120, 140);'>" + 
         QString::number(temp) + "</span>"
         "<span style='font-family: Calculator; font-size: 25px; color: rgb(0, 120, 140);'> °C</span>");
     label->setContentsMargins(5, 0, 0, 0);
-    label->setAlignment(Qt::AlignTop | Qt::AlignLeft);
-    main_layout->addWidget(label);
+    label->setAlignment(Qt::AlignLeft);
 }
 
 void Temperature::set_temperature(int temp)

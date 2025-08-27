@@ -31,7 +31,7 @@ jobs:
           rm -rf build
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON -DUSE_SANITIZER=ON ..
+          cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON ..
           make 
           xvfb-run -a ./digital_cluster_test
           lcov --capture --directory . --output-file coverage.info --ignore-errors mismatch,unused

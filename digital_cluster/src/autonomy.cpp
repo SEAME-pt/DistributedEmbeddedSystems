@@ -4,34 +4,38 @@
 Autonomy::Autonomy(QWidget *parent)
     : QWidget{parent}
 {
-    if (parent)
-    {
-        setMinimumSize(parent->width() * 0.2, parent->height() * 0.16); 
-        setMaximumSize(parent->width() * 0.2, parent->height() * 0.16);
-    }
+    label = new QLabel(this);
     main_layout = new QVBoxLayout(this);
-    main_layout->setSpacing(height() * 0.05);
     layout = new QHBoxLayout();
-    layout->setSpacing(width() * 0.0155); 
+
+    // setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    label->setAlignment(Qt::AlignCenter);
+    label->setMinimumWidth(120);
+    main_layout->setSpacing(10); 
+    main_layout->setContentsMargins(0, 0, 0, 0); // Remove margins
+
+    layout->setSpacing(2);
+    layout->setContentsMargins(0, 0, 0, 0);
+
     nb_sections = 6;
     for (int i = 0; i < nb_sections; ++i)
     {
         QWidget *section = new QWidget(this);
-        section->setFixedHeight(height() * 0.3);
-        section->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        section->setFixedSize(20, 30);
+        // section->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         layout->addWidget(section);
         sections.append(section);
     }
+
     main_layout->addLayout(layout);
-    label = new QLabel(this);
     set_autonomy(8);
+    main_layout->addWidget(label); // Add label to the layout
 }
 
 //destructor
 Autonomy::~Autonomy()
 {
     std::cout << "Remove Autonomy" << std::endl;
-    delete layout;
 }
 
 //setter
@@ -65,12 +69,11 @@ void Autonomy::set_autonomy(int aut)
         }
     }
     label->setTextFormat(Qt::RichText); // Enable rich text
-    label->setText("<span style='font-family: Digital-7; font-size: 27px;'>" + QString::number(aut) + 
-        "</span><span style='font-family: Calculator; font-size: 27px;'> km</span>");
+    label->setText("<span style='font-family: Digital-7; font-size: 25px;'>" + QString::number(aut) + 
+        "</span><span style='font-family: Calculator; font-size: 25px;'> km</span>");
     label->setStyleSheet("color: rgb(0, 120, 140);");
-    label->setAlignment(Qt::AlignTop | Qt::AlignRight);
+    label->setAlignment(Qt::AlignRight);
     label->setContentsMargins(0, 0, 5, 0);
-    main_layout->addWidget(label);
 }
 
 // getters

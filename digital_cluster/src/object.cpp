@@ -8,7 +8,7 @@ Object::Object(QWidget *parent): QWidget(parent)
     speed80_path = QDir(path).filePath("../fonts_icon/speed80.png");
     speed80_path = QDir::cleanPath(speed80_path);
     object = 0;
-    // set_object(1, "jetracer/speed_50");
+    set_object(1, "jetracer/speed_50");
 }
 
 void Object::paintEvent(QPaintEvent *event)
@@ -22,7 +22,7 @@ void Object::paintEvent(QPaintEvent *event)
         pixmap.load(speed80_path);
     }
     if (!pixmap.isNull()) {
-        QPixmap scaled = pixmap.scaled(55, 55, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        QPixmap scaled = pixmap.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         painter.drawPixmap(0, 0, scaled);  //  margin
     }
     else {
@@ -33,7 +33,7 @@ void Object::paintEvent(QPaintEvent *event)
 //parsing
 void Object::set_object(int i, const QString &topicName)
 {
-    if (object == i or (i != 1 && i != 0))
+    if (i != 1)
         return;
     if (topicName == "jetracer/speed_50") {
         object = i + 10;

@@ -4,38 +4,53 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), client(new QMqttClient(this))
 {
-    setStyleSheet("background-color: rgb(0, 0, 20);");
     left_dial = new Speed(this);
     right_dial = new Battery(this);
     object = new Object(this);
-    QHBoxLayout* layout = new QHBoxLayout(); 
-    layout->addWidget(left_dial, 1,  Qt::AlignTop | Qt::AlignLeft); 
-
-    center_dial = new Lane(this);
-    QVBoxLayout* centerLayout = new QVBoxLayout();
-    centerLayout->addWidget(center_dial, 0, Qt::AlignCenter);
-    layout->addLayout(centerLayout, 1);
-    
-    layout->addWidget(right_dial, 1, Qt::AlignTop | Qt::AlignRight);
-    QVBoxLayout* mainlayout = new QVBoxLayout();
-    
-    QHBoxLayout* objectLayout = new QHBoxLayout();
-    objectLayout->addStretch();  // Push the widget to the right
-    object->setFixedSize(50, 50);  // or any size that fits your image
-    objectLayout->addWidget(object, 0, Qt::AlignTop | Qt::AlignRight);
-    mainlayout->addLayout(objectLayout, 0);
-    mainlayout->addLayout(layout, 2);
-    
     temp = new Temperature(this);
     autonomy = new Autonomy(this);
-    QHBoxLayout* layoutbar = new QHBoxLayout();
-    layoutbar->setSpacing(width() / 20);
-    layoutbar->addWidget(temp, 0, Qt::AlignBottom | Qt::AlignRight);
-    layoutbar->addWidget(autonomy, 0, Qt::AlignBottom | Qt::AlignLeft);
-    mainlayout->addLayout(layoutbar, 1);
+    center_dial = new Lane(this);
+    QVBoxLayout* mainlayout = new QVBoxLayout();
+    QHBoxLayout* layout = new QHBoxLayout(); 
+    QVBoxLayout* lane_layout = new QVBoxLayout();
+    // QHBoxLayout* layoutbar = new QHBoxLayout();
+    QHBoxLayout* centerbar = new QHBoxLayout();
     QWidget* centralWidget = new QWidget(this);
+    
+    layout->addWidget(left_dial, 1,  Qt::AlignTop | Qt::AlignLeft); 
+    lane_layout->addWidget(center_dial, 0, Qt::AlignCenter);
+    layout->addLayout(lane_layout, 1);
+    layout->addWidget(right_dial, 1, Qt::AlignTop | Qt::AlignRight);
+    
+    // Create layouts
+    object->setFixedSize(60, 60);
+
+    // Create a main container for the entire bar
+    QWidget *barContainer = new QWidget();
+    QHBoxLayout *barLayout = new QHBoxLayout(barContainer);
+    barLayout->setContentsMargins(20, 0, 80, 0); // Left/right margins
+
+    // Left section with object
+    barLayout->addWidget(object, 0, Qt::AlignLeft);
+
+    // Center section with temp and autonomy
+    QWidget *centerWidget = new QWidget();
+    QHBoxLayout *centerLayout = new QHBoxLayout(centerWidget);
+    centerLayout->setContentsMargins(0, 0, 0, 0);
+    centerLayout->addStretch(1);
+    centerLayout->addWidget(temp, 0, Qt::AlignTop);
+    centerLayout->addSpacing(30);
+    centerLayout->addWidget(autonomy, 0, Qt::AlignTop);
+    centerLayout->addStretch(1);
+
+    barLayout->addWidget(centerWidget, 1); // Take remaining space
+
+    mainlayout->addLayout(layout, 2);
+    mainlayout->addWidget(barContainer, 1); // Add the container widget
+
     centralWidget->setLayout(mainlayout);
     setCentralWidget(centralWidget);
+    setStyleSheet("background-color: rgb(0, 0, 20);");
     init_mqtt();
 }
 

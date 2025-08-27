@@ -1,8 +1,8 @@
 # Instrument Cluster
 
-![Cluster](results/cluster.jpeg)
+Our Digital Cluster receives updates from the **cloud** via MQTT.
 
-Click to see our Digital Cluster updating the values with **Cloud** [View video](results/cluster.mp4).
+![Cluster](results/cluster.gif)
 
 ### Compile and run with Cmake
 
