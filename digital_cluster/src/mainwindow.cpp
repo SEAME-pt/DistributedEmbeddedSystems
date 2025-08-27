@@ -80,9 +80,11 @@ void    MainWindow::connected()
     auto autono_sub = client->subscribe(autono);
     QMqttTopicFilter lane("jetracer/lane_touch");
     auto lane_sub = client->subscribe(lane);
-    // QMqttTopicFilter obj("jetracer/object");
-    // auto object = client->subscribe(obj);
-    if (!speed_sub || !bat_sub | !autono_sub || !temp_sub || !lane_sub) {  // || !object
+    QMqttTopicFilter speed50("jetracer/speed_50");
+    auto speed50_sub = client->subscribe(speed50);
+    QMqttTopicFilter speed80("jetracer/speed_80");
+    auto speed80_sub = client->subscribe(speed80);
+    if (!speed_sub || !bat_sub | !autono_sub || !temp_sub || !lane_sub || !speed50_sub || !speed80_sub) {
         qDebug() << "Failed to subscribe to topic";
     } 
 }
@@ -119,11 +121,11 @@ void    MainWindow::message_received(const QByteArray &message, const QMqttTopic
                 center_dial->set_lane(msg);
             }, Qt::AutoConnection);
         }
-        // else if (topic.name() == "jetracer/object") {
-        //     QMetaObject::invokeMethod(this, [this, msg]() {
-        //         center_dial->set_object(msg);
-        //     }, Qt::AutoConnection);
-        // }
+        else if (topic.name() == "jetracer/speed_50" || topic.name() == "jetracer/speed_80") {
+            QMetaObject::invokeMethod(this, [this, msg, topic]() {
+                object->set_object(msg, topic.name());
+            }, Qt::AutoConnection);
+        }
     } else {
         qDebug() << "Invalid data received";
     }

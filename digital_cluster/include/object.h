@@ -20,7 +20,7 @@ public:
   int get_object();
   QString get_speed50_path() const { return speed50_path; }
   QString get_speed80_path() const { return speed80_path; }
-  void set_object(int i);
+  void set_object(int i, const QString &topicName);
 
 protected:
   void paintEvent(QPaintEvent *) override;
