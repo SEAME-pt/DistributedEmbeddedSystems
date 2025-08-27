@@ -1,6 +1,6 @@
 # Digital Cluster
 
-\image html digital_cluster/results/cluster.png "digital cluster" width=50%
+\image html digital_cluster/results/cluster.png "digital cluster" width=70%
 
 ## Project Architecture
 
