@@ -38,8 +38,6 @@ jobs:
           lcov --remove coverage.info '*/build/*' '*/test/*' '/usr/*' --output-file coverage.info
           genhtml coverage.info --output-directory coverage_report
 
-      - name: Create docs directory if it does not exist
-        run: mkdir -p doxyfiles/docs
 
       # Gerar documentação
       - name: Generate Documentation
@@ -61,14 +59,14 @@ jobs:
 
       - name: Move coverage report into docs
         run: |
-          mkdir -p docs/coverage
-          cp -r digital_cluster/build/coverage_report/* docs/coverage/
+          mkdir -p doxyfiles/docs/coverage
+          cp -r digital_cluster/build/coverage_report/* doxyfiles/docs/coverage/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.PAT_TOKEN }}
-          publish_dir: docs
+          publish_dir: doxyfiles/docs
           # destination_dir: ./
           force_orphan: true
           # user_name: github-actions
