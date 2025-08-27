@@ -36,6 +36,7 @@ public:
     Temperature *get_temperature();
     Object*   get_object();
     Lane*   get_lane();
+    Speed*    get_speed();
 
 private slots:
     void connected();

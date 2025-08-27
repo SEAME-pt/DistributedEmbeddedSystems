@@ -42,6 +42,7 @@ void Temperature::set_text(int temp)
 
 void Temperature::set_temperature(int temp)
 {
+    temperature = temp;
     int sections_color = static_cast<int>((temp / 80.0) * nb_sections);
     for (int i = 0; i < nb_sections; ++i) {
         if (i < sections_color) {
@@ -68,6 +69,11 @@ void Temperature::set_temperature(int temp)
 int Temperature::get_nbsections()
 {
     return nb_sections;
+}
+
+int Temperature::get_temperature()
+{
+    return temperature;
 }
 
 QVector<QWidget*> Temperature::get_sections()

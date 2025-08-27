@@ -21,9 +21,11 @@ public:
     QHBoxLayout* get_layout();
     QVBoxLayout* get_mainlayout();
     QLabel *get_label();
+    int get_temperature();
 
 private:
     int nb_sections;
+    int temperature;
     QVector<QWidget*> sections;
     QHBoxLayout *layout;
     QVBoxLayout* main_layout;

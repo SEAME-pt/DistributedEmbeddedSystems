@@ -8,7 +8,7 @@ Object::Object(QWidget *parent): QWidget(parent)
     speed80_path = QDir(path).filePath("../fonts_icon/speed80.png");
     speed80_path = QDir::cleanPath(speed80_path);
     object = 0;
-    set_object(1, "jetracer/speed_80");
+    // set_object(1, "jetracer/speed_50");
 }
 
 void Object::paintEvent(QPaintEvent *event)
@@ -16,7 +16,7 @@ void Object::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
     QPixmap pixmap;
-    if (object == 10) {
+    if (object == 11) {
         pixmap.load(speed50_path);
     } else if (object == 1) {
         pixmap.load(speed80_path);

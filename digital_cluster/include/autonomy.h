@@ -17,6 +17,7 @@ public:
     ~Autonomy();
     void set_autonomy(int i);
     int get_nbsections();
+    int get_autonomy();
     QVector<QWidget*> get_sections();
     QHBoxLayout* get_layout();
     QVBoxLayout* get_mainlayout();
@@ -25,6 +26,7 @@ public:
 
 private:
     int nb_sections;
+    int autonomy;
     QVector<QWidget*> sections;
     QHBoxLayout *layout;
     QVBoxLayout *main_layout;

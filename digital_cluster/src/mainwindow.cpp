@@ -141,6 +141,11 @@ Battery*    MainWindow::get_battery()
     return right_dial;
 }
 
+Speed*    MainWindow::get_speed()
+{
+    return left_dial;
+}
+
 Autonomy*   MainWindow::get_autonomy()
 {
     std::cout << "Getting autonomy\n";

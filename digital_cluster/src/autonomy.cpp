@@ -37,6 +37,7 @@ Autonomy::~Autonomy()
 //setter
 void Autonomy::set_autonomy(int aut)
 {
+    autonomy = aut;
     int sections_color = static_cast<int>((aut / 10.0) * nb_sections);
     for (int i = nb_sections -1; i >= 0; i--)
     {
@@ -76,6 +77,11 @@ void Autonomy::set_autonomy(int aut)
 int Autonomy::get_nbsections()
 {
     return nb_sections;
+}
+
+int Autonomy::get_autonomy()
+{
+    return autonomy;
 }
 
 QVector<QWidget*> Autonomy::get_sections()
