@@ -50,3 +50,5 @@ jobs:
           cp -r ./fonts_icon /home/jetracer/qt_cluster/
           ls -lh /home/jetracer/qt_cluster/build/digital_cluster
           ls -lh /home/jetracer/qt_cluster/fonts_icon
+          docker-compose build
+          docker-compose up 
