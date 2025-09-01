@@ -8,7 +8,6 @@ Autonomy::Autonomy(QWidget *parent)
     main_layout = new QVBoxLayout(this);
     layout = new QHBoxLayout();
 
-    // setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     label->setAlignment(Qt::AlignCenter);
     label->setMinimumWidth(120);
     main_layout->setSpacing(10); 
@@ -22,13 +21,12 @@ Autonomy::Autonomy(QWidget *parent)
     {
         QWidget *section = new QWidget(this);
         section->setFixedSize(20, 30);
-        // section->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         layout->addWidget(section);
         sections.append(section);
     }
 
     main_layout->addLayout(layout);
-    set_autonomy(8);
+    set_autonomy(7);
     main_layout->addWidget(label); // Add label to the layout
 }
 
@@ -47,21 +45,32 @@ void Autonomy::set_autonomy(int aut)
     {
         if (i >= nb_sections - sections_color)
         {
-            QColor section_color;
+            QColor startColor(0, 60, 50); // dark cyan-green
+            QColor endColor;
+
             if (aut > 6)
             {
-                int red = std::max(0, 120 - ((nb_sections - 1 - i) * (255 / nb_sections))); 
-                int green = std::min(255, 80 + ((nb_sections - 1 - i) * (20 / nb_sections))); 
-                int blue = std::min(255, 50 + ((nb_sections - 1 - i) * (50 / nb_sections)));  
-                section_color.setRgb(red, green, blue);
-            } else
+                // Smooth cyan-green gradient
+                endColor = QColor(0, 80, 70); // slightly brighter cyan-green
+            }
+            else
             {
-                int red = std::max(0, 120 - ((nb_sections - 1 - i) * (255 / nb_sections)));         
-                int green = std::min(255, 80 + ((nb_sections - 1 - i) * (20 / nb_sections))); 
-                int blue = std::min(255, 50 + ((nb_sections - 1 - i) * (50 / nb_sections)));
-                section_color.setRgb(red, green, blue);
-            } 
+                // Gradually shift from cyan-green to reddish
+                endColor = QColor(90, 15, 0); // reddish, not too bright
+            }
+
+            // Interpolate based on **active section index** (0 = leftmost active)
+            int activeIndex = i - (nb_sections - sections_color);  // 0..sections_active-1
+            float t = (sections_color > 1) ? float(activeIndex) / (sections_color - 1) : 0.0f;   // 0..1
+
+            int red   = startColor.red()   + t * (endColor.red()   - startColor.red());
+            int green = startColor.green() + t * (endColor.green() - startColor.green());
+            int blue  = startColor.blue()  + t * (endColor.blue()  - startColor.blue());
+
+            QColor section_color(red, green, blue);  // correct: QColor object
             sections[i]->setStyleSheet(QString("background-color: %1").arg(section_color.name()));
+
+
         } else
         {
             QColor inactive_color(22, 32, 60); 

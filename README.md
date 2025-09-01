@@ -21,7 +21,7 @@ For more documentation and visual results of our Qt app, go to [Digital Cluster 
 For more on our **CAN Communication, Arduino and Speed Sensor**, visit our [Arduino documentation](/arduino/README_arduino.md).
 
 To view a more detailed and structured documentation, click on
-[Doxygen documentation ](https://seame-pt.github.io/DistributedEmbeddedSystems/).
+[Doxygen documentation](https://seame-pt.github.io/DistributedEmbeddedSystems/).
 
 ## Test Coverage Report
 

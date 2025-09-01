@@ -26,7 +26,7 @@ Temperature::Temperature(QWidget *parent)
     }
 
     main_layout->addLayout(layout);
-    set_temperature(50);
+    set_temperature(70);
     main_layout->addWidget(label); // Ensure label is added to the layout
 }
 

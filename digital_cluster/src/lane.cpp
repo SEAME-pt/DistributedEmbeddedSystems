@@ -30,14 +30,14 @@ void Lane::setters()
 
     laneGradient = QLinearGradient(0, height() * 0.9, 0, 0);
     laneGradient.setColorAt(0.0, QColor(20, 20, 20, 20));
-    laneGradient.setColorAt(0.4, QColor(100, 100, 100, 100));
-    laneGradient.setColorAt(0.5, QColor(100, 100, 100, 100));
+    laneGradient.setColorAt(0.4, QColor(150, 150, 150, 150));
+    laneGradient.setColorAt(0.5, QColor(150, 150, 150, 150));
     laneGradient.setColorAt(1.0, QColor(20, 20, 20, 1));
 
     redGradient = QLinearGradient(0, height() * 0.9, 0, 0);
     redGradient.setColorAt(0.0, QColor(50, 5, 0, 50));
-    redGradient.setColorAt(0.4, QColor(180, 20, 0, 150));
-    redGradient.setColorAt(0.6, QColor(180, 20, 0, 150));
+    redGradient.setColorAt(0.4, QColor(200, 30, 0, 150));
+    redGradient.setColorAt(0.6, QColor(200, 30, 0, 150));
     redGradient.setColorAt(1.0, QColor(50, 5, 0, 50));
 
     leftGrayPen = QPen(QBrush(laneGradient), 5, Qt::DashLine);
