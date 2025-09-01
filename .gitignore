@@ -3,6 +3,4 @@ digital_cluster/digital_cluster
 digital_cluster/.env
 digital_cluster/.vscode/
 digital_cluster/src/object copy.cpp
-docs/
-.gitignore
 .vscode/

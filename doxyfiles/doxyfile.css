@@ -6,8 +6,9 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-} */
+img {
+    max-width: 100%;   /* ensures images never overflow container */
+    height: auto;      /* keeps aspect ratio */
+    display: block;   
+    margin: 10px auto; /* centers the image with margins */
+}
