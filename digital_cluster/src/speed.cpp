@@ -62,7 +62,7 @@ void Speed::paint_text(QPainter &painter) {
     QRect currentTextRect = painter.boundingRect(rect(), Qt::AlignCenter, QString::number(current));
     painter.drawText(currentTextRect, Qt::AlignCenter, QString::number(current));
     painter.setPen(QPen(Qt::darkCyan));
-    painter.setFont(QFont("Calculator", width() / 14));
+    painter.setFont(QFont("Calculator", width() / 12));
     QRect kmhRect = painter.boundingRect(rect(), Qt::AlignCenter, "km/h");
     int yPosition = currentTextRect.bottom() + kmhRect.height(); 
     int xPosition = (width() - kmhRect.width()) / 2;

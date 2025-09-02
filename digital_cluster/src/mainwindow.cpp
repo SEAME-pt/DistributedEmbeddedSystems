@@ -40,6 +40,8 @@ MainWindow::MainWindow(QWidget *parent)
     centerLayout->addStretch(1);
     temp->setFixedHeight(80);       // or whatever looks right
     autonomy->setFixedHeight(80);   // match temp
+    // temp->setStyleSheet("border: 1px solid red;");
+    // autonomy->setStyleSheet("border: 1px solid blue;");
 
     centerLayout->addWidget(temp, 0, Qt::AlignTop);
     centerLayout->addSpacing(30);
@@ -73,16 +75,16 @@ void    MainWindow::init_mqtt()
     client->setUsername(user); 
     QString pass = qgetenv("password");
     client->setPassword(pass); 
-    // client->setHostname("10.21.221.67"); //when on the same network
+    client->setHostname("10.21.221.67"); //when on the same network
     client->setPort(1883); //cross compiling
-    client->setHostname("127.0.0.1"); //when cross-compiling with jetracer
+    // client->setHostname("127.0.0.1"); //when cross-compiling with jetracer
 
     connect(client, &QMqttClient::connected, this, &MainWindow::connected);
     connect(client, &QMqttClient::messageReceived, this, &MainWindow::message_received);
     connect(client, &QMqttClient::errorChanged, this, [](QMqttClient::ClientError error) {
         qDebug() << "MQTT Client error:" << error;
     });
-    client->connectToHostEncrypted(); //for cloud needs to be encrypted, for jetracer network or localhost its not encrypted
+    client->connectToHost(); //for cloud needs to be encrypted, for jetracer network or localhost its not encrypted
 }
 
 //subscribing to topic of mqtt

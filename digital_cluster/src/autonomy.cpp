@@ -9,8 +9,8 @@ Autonomy::Autonomy(QWidget *parent)
     layout = new QHBoxLayout();
 
     label->setAlignment(Qt::AlignCenter);
-    label->setMinimumWidth(140);
-    main_layout->setSpacing(10); 
+    label->setMinimumWidth(120);
+    main_layout->setSpacing(6); 
     main_layout->setContentsMargins(0, 0, 0, 0); // Remove margins
 
     layout->setSpacing(2);
@@ -20,7 +20,7 @@ Autonomy::Autonomy(QWidget *parent)
     for (int i = 0; i < nb_sections; ++i)
     {
         QWidget *section = new QWidget(this);
-        section->setFixedSize(25, 35);
+        section->setFixedSize(22, 32);
         layout->addWidget(section);
         sections.append(section);
     }
@@ -45,20 +45,17 @@ void Autonomy::set_autonomy(int aut)
     {
         if (i >= nb_sections - sections_color)
         {
-            QColor startColor(0, 80, 60); // dark cyan-green
             QColor endColor;
-
+            QColor startColor(0, 80, 60); // dark cyan-green
+            
             if (aut > 6)
             {
-                // Smooth cyan-green gradient
-                endColor = QColor(0, 100, 80); // slightly brighter cyan-green
+                endColor = QColor(0, 60, 40); // slightly brighter cyan-green
             }
             else
             {
-                // Gradually shift from cyan-green to reddish
-                endColor = QColor(90, 15, 0); // reddish, not too bright
+                endColor = QColor(60, 10, 0);
             }
-
             // Interpolate based on **active section index** (0 = leftmost active)
             int activeIndex = i - (nb_sections - sections_color);  // 0..sections_active-1
             float t = (sections_color > 1) ? float(activeIndex) / (sections_color - 1) : 0.0f;   // 0..1
@@ -79,7 +76,7 @@ void Autonomy::set_autonomy(int aut)
     }
     label->setTextFormat(Qt::RichText); // Enable rich text
     label->setText("<span style='font-family: Digital-7; font-size: 30px;'>" + QString::number(aut) + 
-        "</span><span style='font-family: Calculator; font-size: 32px;'> km</span>");
+        "</span><span style='font-family: Calculator; font-size: 30px;'> km</span>");
     label->setStyleSheet("color: rgb(0, 120, 140);");
     label->setAlignment(Qt::AlignRight);
     label->setContentsMargins(0, 0, 5, 0);

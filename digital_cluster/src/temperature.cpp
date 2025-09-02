@@ -9,8 +9,8 @@ Temperature::Temperature(QWidget *parent)
 
     // setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     label->setAlignment(Qt::AlignCenter);
-    label->setMinimumWidth(140);
-    main_layout->setSpacing(10); 
+    label->setMinimumWidth(120);
+    main_layout->setSpacing(6); 
     main_layout->setContentsMargins(0, 0, 0, 0); // Remove margins for precise control
 
     layout->setSpacing(2); 
@@ -19,14 +19,14 @@ Temperature::Temperature(QWidget *parent)
     nb_sections = 6;
     for (int i = 0; i < nb_sections; ++i) {
         QWidget *section = new QWidget(this);
-        section->setFixedSize(25, 35);
+        section->setFixedSize(22, 32);
         // section->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         layout->addWidget(section);
         sections.append(section);
     }
 
     main_layout->addLayout(layout);
-    set_temperature(70);
+    set_temperature(40);
     main_layout->addWidget(label); // Ensure label is added to the layout
 }
 
@@ -39,9 +39,9 @@ void Temperature::set_text(int temp)
 {
     label->setTextFormat(Qt::RichText);
     label->setText("<span style='font-family: Noto Sans; font-size: 24px; color: rgb(0, 120, 140);'>🌡️&nbsp;</span>"
-        "<span style='font-family: Digital-7; font-size: 28px; color: rgb(0, 120, 140);'>" + 
+        "<span style='font-family: Digital-7; font-size: 30px; color: rgb(0, 120, 140);'>" + 
         QString::number(temp) + "</span>"
-        "<span style='font-family: Calculator; font-size: 28px; color: rgb(0, 120, 140);'> °C</span>");
+        "<span style='font-family: Calculator; font-size: 30px; color: rgb(0, 120, 140);'> °C</span>");
     label->setContentsMargins(5, 0, 0, 0);
     label->setAlignment(Qt::AlignLeft);
 }
