@@ -4,14 +4,17 @@ Lane::Lane(QWidget *parent) : QWidget(parent), lane(1)
 {
     if (parent)
     {
-        setMinimumSize(parent->width() * 0.4, parent->height() * 0.4);
-        setMaximumSize(parent->width() * 0.4, parent->height() * 0.4);
+        setMinimumSize(parent->width() * 0.5, parent->height() * 0.5);
+        // setMaximumSize(parent->width() * 0.6, parent->height() * 0.4);
     }
     QString path = QCoreApplication::applicationDirPath();
     QString digital_path = QDir(path).filePath("../fonts_icon/sports.png");
     digital_path = QDir::cleanPath(digital_path);
     pixmap = QPixmap(digital_path);
-    pixmap = pixmap.scaled(this->width() * 0.4, height() * 0.7, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    // pixmap_original = QPixmap(digital_path);
+    // pixmap = pixmap_original.scaled(size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    
+    pixmap = pixmap.scaled(this->width() * 0.4 , height() * 0.5, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     animationTimer = new QTimer(this);
     connect(animationTimer, &QTimer::timeout, this, [this]() {
         m_leftDashOffset = int(m_leftDashOffset + 1) % 30;
@@ -83,10 +86,24 @@ void Lane::showNoLanePopup()
     }
 }
 
+// void Lane::resizeEvent(QResizeEvent *event)
+// {
+//     if (!pixmap_original.isNull()) {
+//         pixmap = pixmap_original.scaled(event->size(),
+//                                         Qt::KeepAspectRatio,
+//                                         Qt::SmoothTransformation);
+//         update();
+//     }
+
+//     QWidget::resizeEvent(event); // call base implementation
+// }
+
+
 void Lane::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
+    
     QRect rect = QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, pixmap.size(), this->rect());
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
     painter.drawPixmap(rect, pixmap);

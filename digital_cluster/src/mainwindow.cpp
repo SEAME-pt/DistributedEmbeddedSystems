@@ -13,12 +13,12 @@ MainWindow::MainWindow(QWidget *parent)
     QVBoxLayout* mainlayout = new QVBoxLayout();
     QHBoxLayout* layout = new QHBoxLayout(); 
     QVBoxLayout* lane_layout = new QVBoxLayout();
-    // QHBoxLayout* layoutbar = new QHBoxLayout();
     QHBoxLayout* centerbar = new QHBoxLayout();
     QWidget* centralWidget = new QWidget(this);
     
     layout->addWidget(left_dial, 1,  Qt::AlignTop | Qt::AlignLeft); 
     lane_layout->addWidget(center_dial, 0, Qt::AlignCenter);
+    lane_layout->setStretch(0, 1);
     layout->addLayout(lane_layout, 1);
     layout->addWidget(right_dial, 1, Qt::AlignTop | Qt::AlignRight);
     
@@ -38,8 +38,8 @@ MainWindow::MainWindow(QWidget *parent)
     QHBoxLayout *centerLayout = new QHBoxLayout(centerWidget);
     centerLayout->setContentsMargins(0, 0, 0, 0);
     centerLayout->addStretch(1);
-    temp->setFixedHeight(70);       // or whatever looks right
-    autonomy->setFixedHeight(70);   // match temp
+    temp->setFixedHeight(80);       // or whatever looks right
+    autonomy->setFixedHeight(80);   // match temp
 
     centerLayout->addWidget(temp, 0, Qt::AlignTop);
     centerLayout->addSpacing(30);
@@ -67,15 +67,15 @@ MainWindow::~MainWindow()
 //connecting to mqtt via cloud or localhost or to jetracer via network
 void    MainWindow::init_mqtt()
 {
-    client->setHostname("972e24210b544ba49bfb9c1d3164d02b.s1.eu.hivemq.cloud"); //cloud
-    client->setPort(8883);
+    // client->setHostname("972e24210b544ba49bfb9c1d3164d02b.s1.eu.hivemq.cloud"); //cloud
+    // client->setPort(8883);
     QString user = qgetenv("user");
     client->setUsername(user); 
     QString pass = qgetenv("password");
     client->setPassword(pass); 
     // client->setHostname("10.21.221.67"); //when on the same network
-    // client->setPort(1883); //cross compiling
-    // client->setHostname("127.0.0.1"); //when cross-compiling with jetracer
+    client->setPort(1883); //cross compiling
+    client->setHostname("127.0.0.1"); //when cross-compiling with jetracer
 
     connect(client, &QMqttClient::connected, this, &MainWindow::connected);
     connect(client, &QMqttClient::messageReceived, this, &MainWindow::message_received);

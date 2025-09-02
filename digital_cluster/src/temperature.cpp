@@ -9,7 +9,7 @@ Temperature::Temperature(QWidget *parent)
 
     // setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     label->setAlignment(Qt::AlignCenter);
-    label->setMinimumWidth(120);
+    label->setMinimumWidth(140);
     main_layout->setSpacing(10); 
     main_layout->setContentsMargins(0, 0, 0, 0); // Remove margins for precise control
 
@@ -19,7 +19,7 @@ Temperature::Temperature(QWidget *parent)
     nb_sections = 6;
     for (int i = 0; i < nb_sections; ++i) {
         QWidget *section = new QWidget(this);
-        section->setFixedSize(20, 30);
+        section->setFixedSize(25, 35);
         // section->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         layout->addWidget(section);
         sections.append(section);
@@ -38,10 +38,10 @@ Temperature::~Temperature()
 void Temperature::set_text(int temp)
 {
     label->setTextFormat(Qt::RichText);
-    label->setText("<span style='font-family: Noto Sans; font-size: 20px; color: rgb(0, 120, 140);'>🌡️&nbsp;</span>"
-        "<span style='font-family: Digital-7; font-size: 25px; color: rgb(0, 120, 140);'>" + 
+    label->setText("<span style='font-family: Noto Sans; font-size: 24px; color: rgb(0, 120, 140);'>🌡️&nbsp;</span>"
+        "<span style='font-family: Digital-7; font-size: 28px; color: rgb(0, 120, 140);'>" + 
         QString::number(temp) + "</span>"
-        "<span style='font-family: Calculator; font-size: 25px; color: rgb(0, 120, 140);'> °C</span>");
+        "<span style='font-family: Calculator; font-size: 28px; color: rgb(0, 120, 140);'> °C</span>");
     label->setContentsMargins(5, 0, 0, 0);
     label->setAlignment(Qt::AlignLeft);
 }
@@ -54,8 +54,8 @@ void Temperature::set_temperature(int temp)
         if (i < sections_color) {
             QColor sectionColor;
             if (temp < 60) {
-                int green = std::min(255, 60 + (i * (50 / nb_sections))); //from dim cyan to regular cyan
-                int blue = std::min(255, 80 + (i * (50 / nb_sections)));  //dim blueincrease to bright blue
+                int green = std::min(255, 80 + (i * (50 / nb_sections))); //from dim cyan to regular cyan
+                int blue = std::min(255, 100 + (i * (50 / nb_sections)));  //dim blueincrease to bright blue
                 sectionColor.setRgb(0, green, blue);
             } else {
                 int red = (i * (200 / nb_sections));         //increase red component

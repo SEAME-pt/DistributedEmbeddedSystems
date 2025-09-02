@@ -9,7 +9,7 @@ Autonomy::Autonomy(QWidget *parent)
     layout = new QHBoxLayout();
 
     label->setAlignment(Qt::AlignCenter);
-    label->setMinimumWidth(120);
+    label->setMinimumWidth(140);
     main_layout->setSpacing(10); 
     main_layout->setContentsMargins(0, 0, 0, 0); // Remove margins
 
@@ -20,7 +20,7 @@ Autonomy::Autonomy(QWidget *parent)
     for (int i = 0; i < nb_sections; ++i)
     {
         QWidget *section = new QWidget(this);
-        section->setFixedSize(20, 30);
+        section->setFixedSize(25, 35);
         layout->addWidget(section);
         sections.append(section);
     }
@@ -45,13 +45,13 @@ void Autonomy::set_autonomy(int aut)
     {
         if (i >= nb_sections - sections_color)
         {
-            QColor startColor(0, 60, 50); // dark cyan-green
+            QColor startColor(0, 80, 60); // dark cyan-green
             QColor endColor;
 
             if (aut > 6)
             {
                 // Smooth cyan-green gradient
-                endColor = QColor(0, 80, 70); // slightly brighter cyan-green
+                endColor = QColor(0, 100, 80); // slightly brighter cyan-green
             }
             else
             {
@@ -78,8 +78,8 @@ void Autonomy::set_autonomy(int aut)
         }
     }
     label->setTextFormat(Qt::RichText); // Enable rich text
-    label->setText("<span style='font-family: Digital-7; font-size: 25px;'>" + QString::number(aut) + 
-        "</span><span style='font-family: Calculator; font-size: 25px;'> km</span>");
+    label->setText("<span style='font-family: Digital-7; font-size: 30px;'>" + QString::number(aut) + 
+        "</span><span style='font-family: Calculator; font-size: 32px;'> km</span>");
     label->setStyleSheet("color: rgb(0, 120, 140);");
     label->setAlignment(Qt::AlignRight);
     label->setContentsMargins(0, 0, 5, 0);
