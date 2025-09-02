@@ -5,7 +5,7 @@ Speed::Speed(QWidget *parent)
 {
     if (parent) {
         setMinimumSize(parent->width() * 0.5, parent->height() * 0.7); 
-        setMaximumSize(parent->width() * 0.5, parent->height() * 0.7);
+        // setMaximumSize(parent->width() * 0.5, parent->height() * 0.7);
     }
     QString path = QCoreApplication::applicationDirPath();
     QString digital_path = QDir(path).filePath("../fonts_icon/digital-7.ttf");

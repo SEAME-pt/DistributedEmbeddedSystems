@@ -48,13 +48,14 @@ void Autonomy::set_autonomy(int aut)
             QColor endColor;
             QColor startColor(0, 80, 60); // dark cyan-green
             
-            if (aut > 6)
+            if (aut >= 5)
             {
                 endColor = QColor(0, 60, 40); // slightly brighter cyan-green
             }
             else
             {
-                endColor = QColor(60, 10, 0);
+                startColor = QColor(80, 20, 0);
+                endColor = QColor(50, 10, 0);
             }
             // Interpolate based on **active section index** (0 = leftmost active)
             int activeIndex = i - (nb_sections - sections_color);  // 0..sections_active-1
