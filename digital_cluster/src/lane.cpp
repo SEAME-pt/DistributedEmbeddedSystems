@@ -58,10 +58,10 @@ void Lane::showNoLanePopup()
         QHBoxLayout *layout = new QHBoxLayout(popup);
         QLabel *iconLabel = new QLabel(popup);
         QPixmap warningIcon(digital_path);
-        iconLabel->setPixmap(warningIcon.scaled(22, 22, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+        iconLabel->setPixmap(warningIcon.scaled(30, 30, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
         QLabel *textLabel = new QLabel(" Take manual control", popup);
-        textLabel->setStyleSheet("color: gray; font-size: 16px;");
+        textLabel->setStyleSheet("color: gray; font-size: 20px;");
         layout->addWidget(iconLabel, 0, Qt::AlignTop | Qt::AlignCenter);
         layout->addWidget(textLabel, 0, Qt::AlignCenter);
         popup->setLayout(layout);

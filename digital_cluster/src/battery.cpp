@@ -6,7 +6,7 @@ Battery::Battery(QWidget *parent)
     if (parent)
     {
         setMinimumSize(parent->width() * 0.5, parent->height() * 0.7); 
-        setMaximumSize(parent->width() * 0.5, parent->height() * 0.7);
+        // setMaximumSize(parent->width() * 0.5, parent->height() * 0.7);
     }
 }
 
@@ -75,7 +75,7 @@ void Battery::draw_arcs(TestPainter *painter)
     {
         segments = 200;
         start_color = QColor(0, 80, 60); 
-        end_color = QColor(0, 160, 140, 255); 
+        end_color = QColor(0, 100, 150, 255); 
     }
     for (int i = 0; i < segments; ++i)
     {
