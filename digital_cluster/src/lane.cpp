@@ -5,15 +5,11 @@ Lane::Lane(QWidget *parent) : QWidget(parent), lane(1)
     if (parent)
     {
         setMinimumSize(parent->width() * 0.5, parent->height() * 0.5);
-        // setMaximumSize(parent->width() * 0.6, parent->height() * 0.4);
     }
     QString path = QCoreApplication::applicationDirPath();
     QString digital_path = QDir(path).filePath("../fonts_icon/sports.png");
     digital_path = QDir::cleanPath(digital_path);
     pixmap = QPixmap(digital_path);
-    // pixmap_original = QPixmap(digital_path);
-    // pixmap = pixmap_original.scaled(size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    
     pixmap = pixmap.scaled(this->width() * 0.4 , height() * 0.5, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     animationTimer = new QTimer(this);
     connect(animationTimer, &QTimer::timeout, this, [this]() {
@@ -85,19 +81,6 @@ void Lane::showNoLanePopup()
         fadeIn->start(QAbstractAnimation::DeleteWhenStopped);
     }
 }
-
-// void Lane::resizeEvent(QResizeEvent *event)
-// {
-//     if (!pixmap_original.isNull()) {
-//         pixmap = pixmap_original.scaled(event->size(),
-//                                         Qt::KeepAspectRatio,
-//                                         Qt::SmoothTransformation);
-//         update();
-//     }
-
-//     QWidget::resizeEvent(event); // call base implementation
-// }
-
 
 void Lane::paintEvent(QPaintEvent *event)
 {

@@ -110,4 +110,4 @@ public:
     void setTestPainter(TestPainter* painter) { test_painter = painter; }
 };
 
-#endif // BATTERY_H
+#endif 

@@ -33,4 +33,4 @@ private:
     QLabel *label;
 };
 
-#endif // Autonomy_H
+#endif

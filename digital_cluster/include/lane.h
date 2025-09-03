@@ -44,7 +44,6 @@ protected:
     QPixmap pixmap;
     QGraphicsOpacityEffect *opacityEffect;
     void paintEvent(QPaintEvent *) override;
-    // void resizeEvent(QResizeEvent *event) override;
 
     
 public:

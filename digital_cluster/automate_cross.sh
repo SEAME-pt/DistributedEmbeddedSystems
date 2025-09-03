@@ -26,3 +26,5 @@ ssh jetracer@100.123.70.46 "rm -f /home/jetracer/qt_cluster/build/digital_cluste
 echo "Copying new executable to Raspberry"
 
 scp ./digital_cluster jetracer@100.123.70.46:/home/jetracer/qt_cluster/build
+
+ssh jetracer@100.123.70.46 "cd qt_cluster && docker-compose build && docker-compose up"

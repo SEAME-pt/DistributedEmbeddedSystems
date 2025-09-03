@@ -48,3 +48,11 @@ jobs:
           cp -r ./fonts_icon /home/jetracer/qt_cluster/
           ls -lh /home/jetracer/qt_cluster/build/digital_cluster
           ls -lh /home/jetracer/qt_cluster/fonts_icon
+
+      - name: Run Qt App with Docker Compose
+        run: |
+          cd /home/jetracer/qt_cluster
+          docker-compose build
+          docker-compose up
+
+

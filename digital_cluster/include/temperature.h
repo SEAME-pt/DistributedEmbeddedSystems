@@ -32,4 +32,4 @@ private:
     QLabel *label = nullptr;
 };
 
-#endif // Temperature_H
+#endif
