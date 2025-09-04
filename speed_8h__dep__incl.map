@@ -1,0 +1,23 @@
+<map id="/home/runner/work/DistributedEmbeddedSystems/DistributedEmbeddedSystems/digital_cluster/include/speed.h" name="/home/runner/work/DistributedEmbeddedSystems/DistributedEmbeddedSystems/digital_cluster/include/speed.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="1296,5,1588,60"/>
+<area shape="rect" id="Node000002" href="$mainwindow_8h.html" title=" " alt="" coords="980,108,1272,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1353,67,1225,110,1223,105,1352,62"/>
+<area shape="rect" id="Node000010" href="$src_2speed_8cpp.html" title=" " alt="" coords="1296,115,1588,170"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1445,74,1445,115,1439,115,1439,74"/>
+<area shape="rect" id="Node000011" href="$test_2speed_8cpp.html" title=" " alt="" coords="1612,115,1904,170"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="1533,62,1682,113,1680,118,1531,67"/>
+<area shape="rect" id="Node000003" href="$mainwindow_8cpp.html" title=" " alt="" coords="5,225,316,280"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="967,160,670,189,329,228,317,230,316,224,328,223,670,184,966,155"/>
+<area shape="rect" id="Node000004" href="$test_2autonomy_8cpp.html" title=" " alt="" coords="341,225,639,280"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="967,174,640,229,639,223,966,168"/>
+<area shape="rect" id="Node000005" href="$test_2battery_8cpp.html" title=" " alt="" coords="664,225,956,280"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="1016,184,887,228,886,223,1014,179"/>
+<area shape="rect" id="Node000006" href="$test_2lane_8cpp.html" title=" " alt="" coords="980,225,1272,280"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="1129,191,1129,225,1123,225,1123,191"/>
+<area shape="rect" id="Node000007" href="$test_2object_8cpp.html" title=" " alt="" coords="1296,225,1588,280"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="1238,179,1366,223,1365,228,1236,184"/>
+<area shape="rect" id="Node000008" href="$test_2temperature_8cpp.html" title=" " alt="" coords="1613,225,1927,280"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="1286,175,1445,200,1601,223,1613,224,1612,230,1600,228,1445,206,1285,180"/>
+<area shape="rect" id="Node000009" href="$window_8cpp.html" title=" " alt="" coords="1952,225,2244,280"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="1286,175,1470,194,1614,201,1758,207,1940,223,1952,224,1952,230,1939,228,1757,212,1614,206,1470,200,1286,180"/>
+</map>

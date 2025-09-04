@@ -1,0 +1,17 @@
+<map id="/home/runner/work/DistributedEmbeddedSystems/DistributedEmbeddedSystems/digital_cluster/src/temperature.cpp" name="/home/runner/work/DistributedEmbeddedSystems/DistributedEmbeddedSystems/digital_cluster/src/temperature.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="175,5,484,60"/>
+<area shape="rect" id="Node000002" href="$temperature_8h.html" title=" " alt="" coords="240,108,419,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="332,60,332,94,327,94,327,60"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,181,80,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="284,136,94,183,93,178,283,131"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="105,181,183,207"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="301,136,188,179,186,174,299,131"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="207,181,318,207"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="320,135,285,173,281,169,316,132"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="342,181,453,207"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="342,132,379,169,375,173,339,136"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="477,181,544,207"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="359,131,469,174,467,179,357,136"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="568,181,648,207"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="375,131,555,177,554,182,373,136"/>
+</map>

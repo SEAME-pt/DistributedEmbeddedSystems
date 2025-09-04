@@ -1,0 +1,14 @@
+body {
+    margin: 10px;
+    padding: 10px;
+    margin-left: 100px;
+    margin-right: 100px;
+    font-family: Arial, sans-serif;
+}
+
+img {
+    max-width: 100%;   /* ensures images never overflow container */
+    height: auto;      /* keeps aspect ratio */
+    display: block;   
+    margin: 10px auto; /* centers the image with margins */
+}

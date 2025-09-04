@@ -1,0 +1,17 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,153,107,179"/>
+<area shape="rect" id="Node000001" href="$classAutonomyT.html" title=" " alt="" coords="162,5,259,31"/>
+<area shape="poly" id="edge8_Node000000_Node000001" title=" " alt="" coords="69,140,104,90,127,64,153,40,172,29,175,33,156,44,131,67,108,94,74,143"/>
+<area shape="rect" id="Node000002" href="$classBatteryT.html" title=" " alt="" coords="171,55,250,80"/>
+<area shape="poly" id="edge9_Node000000_Node000002" title=" " alt="" coords="80,142,114,116,153,89,176,78,178,82,156,94,117,120,84,147"/>
+<area shape="rect" id="Node000003" href="$classLaneT.html" title=" " alt="" coords="180,104,241,129"/>
+<area shape="poly" id="edge10_Node000000_Node000003" title=" " alt="" coords="108,147,179,124,181,129,110,152"/>
+<area shape="rect" id="Node000004" href="$classObjectT.html" title=" " alt="" coords="175,153,247,179"/>
+<area shape="poly" id="edge11_Node000000_Node000004" title=" " alt="" coords="121,163,175,163,175,169,121,169"/>
+<area shape="rect" id="Node000005" href="$classSpeedT.html" title=" " alt="" coords="175,203,246,228"/>
+<area shape="poly" id="edge12_Node000000_Node000005" title=" " alt="" coords="110,180,176,202,174,207,109,185"/>
+<area shape="rect" id="Node000006" href="$classTemperatureT.html" title=" " alt="" coords="155,252,267,277"/>
+<area shape="poly" id="edge13_Node000000_Node000006" title=" " alt="" coords="85,186,156,237,180,249,177,254,153,242,82,190"/>
+<area shape="rect" id="Node000007" href="$classWindow.html" title=" " alt="" coords="173,301,248,327"/>
+<area shape="poly" id="edge14_Node000000_Node000007" title=" " alt="" coords="74,189,108,237,131,263,156,287,176,299,174,303,153,291,127,267,104,241,69,192"/>
+</map>

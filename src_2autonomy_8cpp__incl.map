@@ -1,0 +1,23 @@
+<map id="/home/runner/work/DistributedEmbeddedSystems/DistributedEmbeddedSystems/digital_cluster/src/autonomy.cpp" name="/home/runner/work/DistributedEmbeddedSystems/DistributedEmbeddedSystems/digital_cluster/src/autonomy.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="313,5,605,60"/>
+<area shape="rect" id="Node000002" href="$autonomy_8h.html" title=" " alt="" coords="378,108,539,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="461,60,461,94,456,94,456,60"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,181,80,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="379,136,250,156,94,184,93,178,249,151,379,131"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="105,181,183,207"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="409,136,197,183,196,178,408,131"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="207,181,318,207"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="428,136,308,179,307,174,426,131"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="343,181,409,207"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="447,135,402,174,398,170,444,131"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="433,181,484,207"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="461,134,461,168,456,168,456,134"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="509,181,571,207"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="473,131,518,170,515,174,470,135"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="596,181,681,207"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="489,131,598,174,596,179,487,136"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="705,181,785,207"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="505,131,693,177,691,182,504,136"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="810,181,945,207"/>
+<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="526,131,797,176,796,182,525,136"/>
+</map>
