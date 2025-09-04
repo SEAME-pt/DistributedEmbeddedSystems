@@ -15,6 +15,8 @@
 #include <QVBoxLayout>
 #include <QGraphicsOpacityEffect>
 #include <cmath>
+#include <QResizeEvent>
+
 
 class Lane: public QWidget {
     Q_OBJECT
@@ -28,7 +30,8 @@ protected:
     QPen rightGrayPen;
     QPen leftRedPen;
     QPen rightRedPen;
-
+    QPixmap pixmap_original; 
+    
     qreal m_leftDashOffset = 0.0;
     qreal m_rightDashOffset = 0.0;
     qreal m_leftOpacity = 1.0;
@@ -41,6 +44,7 @@ protected:
     QPixmap pixmap;
     QGraphicsOpacityEffect *opacityEffect;
     void paintEvent(QPaintEvent *) override;
+
     
 public:
     Lane(QWidget *parent = nullptr);

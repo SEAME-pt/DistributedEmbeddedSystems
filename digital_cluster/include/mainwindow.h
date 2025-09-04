@@ -34,8 +34,9 @@ public:
     Battery *get_battery();
     Autonomy *get_autonomy();
     Temperature *get_temperature();
-    Lane*   get_lane();
     Object*   get_object();
+    Lane*   get_lane();
+    Speed*    get_speed();
 
 private slots:
     void connected();
@@ -46,6 +47,7 @@ private:
     Speed *left_dial = nullptr;
     Battery *right_dial = nullptr;
     Lane *center_dial = nullptr;
+    Object *object = nullptr;
     QMqttClient *client;
     Temperature *temp;
     Autonomy *autonomy;

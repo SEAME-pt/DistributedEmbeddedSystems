@@ -5,21 +5,22 @@
 #include <string>
 #include <vector>
 
-class Object : public Lane {
+class Object : public QWidget {
   Q_OBJECT
 
 private:
   QWidget *popup = nullptr;
   int object;
-  QString digital_path;
+  QString speed50_path;
+  QString speed80_path;
 
 public:
   Object(QWidget *parent = nullptr);
   ~Object();
-  // void showObjectPopup();
-  void setting_pens(int i, QPainter *painter);
   int get_object();
-  void set_object(int i);
+  QString get_speed50_path() const { return speed50_path; }
+  QString get_speed80_path() const { return speed80_path; }
+  void set_object(int i, const QString &topicName);
 
 protected:
   void paintEvent(QPaintEvent *) override;

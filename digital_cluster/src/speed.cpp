@@ -5,7 +5,7 @@ Speed::Speed(QWidget *parent)
 {
     if (parent) {
         setMinimumSize(parent->width() * 0.5, parent->height() * 0.7); 
-        setMaximumSize(parent->width() * 0.5, parent->height() * 0.7);
+        // setMaximumSize(parent->width() * 0.5, parent->height() * 0.7);
     }
     QString path = QCoreApplication::applicationDirPath();
     QString digital_path = QDir(path).filePath("../fonts_icon/digital-7.ttf");
@@ -62,7 +62,7 @@ void Speed::paint_text(QPainter &painter) {
     QRect currentTextRect = painter.boundingRect(rect(), Qt::AlignCenter, QString::number(current));
     painter.drawText(currentTextRect, Qt::AlignCenter, QString::number(current));
     painter.setPen(QPen(Qt::darkCyan));
-    painter.setFont(QFont("Calculator", width() / 14));
+    painter.setFont(QFont("Calculator", width() / 12));
     QRect kmhRect = painter.boundingRect(rect(), Qt::AlignCenter, "km/h");
     int yPosition = currentTextRect.bottom() + kmhRect.height(); 
     int xPosition = (width() - kmhRect.width()) / 2;
@@ -70,6 +70,7 @@ void Speed::paint_text(QPainter &painter) {
 }
 
 void Speed::set_current(float n) {
+    
     current = n * 3.6;
     float new_target = (current * 270.0f) / max;
     new_target = std::min(new_target, 270.0f);

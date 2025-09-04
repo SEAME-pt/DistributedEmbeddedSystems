@@ -6,7 +6,7 @@ Battery::Battery(QWidget *parent)
     if (parent)
     {
         setMinimumSize(parent->width() * 0.5, parent->height() * 0.7); 
-        setMaximumSize(parent->width() * 0.5, parent->height() * 0.7);
+        // setMaximumSize(parent->width() * 0.5, parent->height() * 0.7);
     }
 }
 
@@ -69,13 +69,13 @@ void Battery::draw_arcs(TestPainter *painter)
     }
     float angle_progress = (static_cast<float>(current) * 270.0f) / max;
     segment_angle = angle_progress / segments;
-    QColor start_color(0, 65, 74); 
+    QColor start_color(0, 80, 60); 
     QColor end_color(0, 255, 200);
     if (current < 40)
     {
         segments = 200;
-        start_color = QColor(0, 65, 74); 
-        end_color = QColor(0, 140, 150, 255); 
+        start_color = QColor(0, 80, 60); 
+        end_color = QColor(0, 100, 150, 255); 
     }
     for (int i = 0; i < segments; ++i)
     {
@@ -95,7 +95,7 @@ void Battery::draw_arcs(TestPainter *painter)
 
 void Battery::draw_pixmap(TestPainter *painter)
 {
-    painter->setPen(QPen(QColor(0, 250, 195)));
+    painter->setPen(QPen(QColor(0, 255, 190)));
     painter->setFont(QFont("Digital-7", width() / 5, QFont::Bold));
     QRect currentTextRect = painter->boundingRect(rect(), Qt::AlignCenter, QString::number(current));
     painter->drawText(currentTextRect, Qt::AlignCenter, QString::number(current));
@@ -104,7 +104,7 @@ void Battery::draw_pixmap(TestPainter *painter)
     QString digital_path = QDir(path).filePath("../fonts_icon/battery.png");
     digital_path = QDir::cleanPath(digital_path);
     QPixmap pixmap(digital_path);  
-    pixmap = pixmap.scaled(width() / 10, width() / 10, Qt::KeepAspectRatio);
+    pixmap = pixmap.scaled(width() / 8, width() / 8, Qt::KeepAspectRatio);
     QRect rectBottom = this->rect();
     int xIcon = (width() - pixmap.width()) / 2;  
     QRect bottomRect = QRect(xIcon, currentTextRect.bottom() + 10, pixmap.width(), pixmap.height());
@@ -114,7 +114,7 @@ void Battery::draw_pixmap(TestPainter *painter)
 
 void Battery::draw_text(TestPainter *painter, QRect bottomRect)
 {
-    QFont font("Calculator", width() / 16);
+    QFont font("Calculator", width() / 12);
     painter->setFont(font);
     painter->setPen(QPen(QColor(0, 120, 100)));
     QRectF textRect(bottomRect.right() + 5, bottomRect.bottom() - 23, 30, 30);  // Adjust size as needed

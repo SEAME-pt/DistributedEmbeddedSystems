@@ -4,31 +4,58 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), client(new QMqttClient(this))
 {
-    setStyleSheet("background-color: rgb(0, 0, 20);");
     left_dial = new Speed(this);
     right_dial = new Battery(this);
-    QHBoxLayout* layout = new QHBoxLayout(); 
-    layout->addWidget(left_dial, 1,  Qt::AlignTop | Qt::AlignLeft); 
-    
-    center_dial = new Lane(this);
-    QVBoxLayout* centerLayout = new QVBoxLayout();
-    centerLayout->addWidget(center_dial, 0, Qt::AlignCenter);
-    layout->addLayout(centerLayout, 1);
-    
-    layout->addWidget(right_dial, 1, Qt::AlignTop | Qt::AlignRight);
-    QVBoxLayout* mainlayout = new QVBoxLayout();
-    mainlayout->addLayout(layout, 2);
-
+    object = new Object(this);
     temp = new Temperature(this);
     autonomy = new Autonomy(this);
-    QHBoxLayout* layoutbar = new QHBoxLayout();
-    layoutbar->setSpacing(width() / 20);
-    layoutbar->addWidget(temp, 0, Qt::AlignBottom | Qt::AlignRight);
-    layoutbar->addWidget(autonomy, 0, Qt::AlignBottom | Qt::AlignLeft);
-    mainlayout->addLayout(layoutbar, 1);
+    center_dial = new Lane(this);
+    QVBoxLayout* mainlayout = new QVBoxLayout();
+    QHBoxLayout* layout = new QHBoxLayout(); 
+    QVBoxLayout* lane_layout = new QVBoxLayout();
+    QHBoxLayout* centerbar = new QHBoxLayout();
     QWidget* centralWidget = new QWidget(this);
+    
+    layout->addWidget(left_dial, 1,  Qt::AlignTop | Qt::AlignLeft); 
+    lane_layout->addWidget(center_dial, 0, Qt::AlignCenter);
+    lane_layout->setStretch(0, 1);
+    layout->addLayout(lane_layout, 1);
+    layout->addWidget(right_dial, 1, Qt::AlignTop | Qt::AlignRight);
+    
+    // Create layouts
+    object->setFixedSize(60, 60);
+
+    // Create a main container for the entire bar
+    QWidget *barContainer = new QWidget();
+    QHBoxLayout *barLayout = new QHBoxLayout(barContainer);
+    barLayout->setContentsMargins(20, 0, 80, 0); // Left/right margins
+
+    // Left section with object
+    barLayout->addWidget(object, 0, Qt::AlignLeft);
+
+    // Center section with temp and autonomy
+    QWidget *centerWidget = new QWidget();
+    QHBoxLayout *centerLayout = new QHBoxLayout(centerWidget);
+    centerLayout->setContentsMargins(0, 0, 0, 0);
+    centerLayout->addStretch(1);
+    temp->setFixedHeight(80);       // or whatever looks right
+    autonomy->setFixedHeight(80);   // match temp
+    // temp->setStyleSheet("border: 1px solid red;");
+    // autonomy->setStyleSheet("border: 1px solid blue;");
+
+    centerLayout->addWidget(temp, 0, Qt::AlignTop);
+    centerLayout->addSpacing(30);
+    centerLayout->addWidget(autonomy, 0, Qt::AlignTop);
+    centerLayout->addStretch(1);
+
+    barLayout->addWidget(centerWidget, 1); // Take remaining space
+
+    mainlayout->addLayout(layout, 2);
+    mainlayout->addWidget(barContainer, 1); // Add the container widget
+
     centralWidget->setLayout(mainlayout);
     setCentralWidget(centralWidget);
+    setStyleSheet("background-color: rgb(0, 0, 20);");
     init_mqtt();
 }
 
@@ -42,14 +69,14 @@ MainWindow::~MainWindow()
 //connecting to mqtt via cloud or localhost or to jetracer via network
 void    MainWindow::init_mqtt()
 {
-    client->setHostname("972e24210b544ba49bfb9c1d3164d02b.s1.eu.hivemq.cloud"); //cloud
-    client->setPort(8883);
+    // client->setHostname("972e24210b544ba49bfb9c1d3164d02b.s1.eu.hivemq.cloud"); //cloud
+    // client->setPort(8883);
     QString user = qgetenv("user");
     client->setUsername(user); 
     QString pass = qgetenv("password");
     client->setPassword(pass); 
-    // client->setHostname("10.21.221.67"); //when on the same network
-    // client->setPort(1883); //cross compiling
+    client->setHostname("10.21.221.67"); //when on the same network
+    client->setPort(1883); //cross compiling
     // client->setHostname("127.0.0.1"); //when cross-compiling with jetracer
 
     connect(client, &QMqttClient::connected, this, &MainWindow::connected);
@@ -73,9 +100,11 @@ void    MainWindow::connected()
     auto autono_sub = client->subscribe(autono);
     QMqttTopicFilter lane("jetracer/lane_touch");
     auto lane_sub = client->subscribe(lane);
-    // QMqttTopicFilter obj("jetracer/object");
-    // auto object = client->subscribe(obj);
-    if (!speed_sub || !bat_sub | !autono_sub || !temp_sub || !lane_sub) {  // || !object
+    QMqttTopicFilter speed50("jetracer/speed_50");
+    auto speed50_sub = client->subscribe(speed50);
+    QMqttTopicFilter speed80("jetracer/speed_80");
+    auto speed80_sub = client->subscribe(speed80);
+    if (!speed_sub || !bat_sub | !autono_sub || !temp_sub || !lane_sub || !speed50_sub || !speed80_sub) {
         qDebug() << "Failed to subscribe to topic";
     } 
 }
@@ -112,11 +141,11 @@ void    MainWindow::message_received(const QByteArray &message, const QMqttTopic
                 center_dial->set_lane(msg);
             }, Qt::AutoConnection);
         }
-        // else if (topic.name() == "jetracer/object") {
-        //     QMetaObject::invokeMethod(this, [this, msg]() {
-        //         center_dial->set_object(msg);
-        //     }, Qt::AutoConnection);
-        // }
+        else if (topic.name() == "jetracer/speed_50" || topic.name() == "jetracer/speed_80") {
+            QMetaObject::invokeMethod(this, [this, msg, topic]() {
+                object->set_object(msg, topic.name());
+            }, Qt::AutoConnection);
+        }
     } else {
         qDebug() << "Invalid data received";
     }
@@ -130,6 +159,11 @@ QMqttClient*    MainWindow::get_client()
 Battery*    MainWindow::get_battery()
 {
     return right_dial;
+}
+
+Speed*    MainWindow::get_speed()
+{
+    return left_dial;
 }
 
 Autonomy*   MainWindow::get_autonomy()
@@ -146,4 +180,9 @@ Temperature*   MainWindow::get_temperature()
 Lane*   MainWindow::get_lane()
 {
     return center_dial;
+}
+
+Object*   MainWindow::get_object()
+{
+    return object;
 }

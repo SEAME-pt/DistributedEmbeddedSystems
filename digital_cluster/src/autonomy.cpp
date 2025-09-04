@@ -4,59 +4,71 @@
 Autonomy::Autonomy(QWidget *parent)
     : QWidget{parent}
 {
-    if (parent)
-    {
-        setMinimumSize(parent->width() * 0.2, parent->height() * 0.16); 
-        setMaximumSize(parent->width() * 0.2, parent->height() * 0.16);
-    }
+    label = new QLabel(this);
     main_layout = new QVBoxLayout(this);
-    main_layout->setSpacing(height() * 0.05);
     layout = new QHBoxLayout();
-    layout->setSpacing(width() * 0.0155); 
+
+    label->setAlignment(Qt::AlignCenter);
+    label->setMinimumWidth(120);
+    main_layout->setSpacing(6); 
+    main_layout->setContentsMargins(0, 0, 0, 0); // Remove margins
+
+    layout->setSpacing(2);
+    layout->setContentsMargins(0, 0, 0, 0);
+
     nb_sections = 6;
     for (int i = 0; i < nb_sections; ++i)
     {
         QWidget *section = new QWidget(this);
-        section->setFixedHeight(height() * 0.3);
-        section->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        section->setFixedSize(22, 32);
         layout->addWidget(section);
         sections.append(section);
     }
+
     main_layout->addLayout(layout);
-    label = new QLabel(this);
-    set_autonomy(8);
+    set_autonomy(7);
+    main_layout->addWidget(label); // Add label to the layout
 }
 
 //destructor
 Autonomy::~Autonomy()
 {
     std::cout << "Remove Autonomy" << std::endl;
-    delete layout;
 }
 
 //setter
 void Autonomy::set_autonomy(int aut)
 {
-    int sections_color = static_cast<int>((aut / 10.0) * nb_sections);
+    autonomy = aut;
+    int sections_color = std::max(1, static_cast<int>(std::ceil((aut / 10.0) * nb_sections)));
     for (int i = nb_sections -1; i >= 0; i--)
     {
         if (i >= nb_sections - sections_color)
         {
-            QColor section_color;
-            if (aut > 6)
+            QColor endColor;
+            QColor startColor(0, 80, 60); // dark cyan-green
+            
+            if (aut >= 5)
             {
-                int red = std::max(0, 120 - ((nb_sections - 1 - i) * (255 / nb_sections))); 
-                int green = std::min(255, 80 + ((nb_sections - 1 - i) * (20 / nb_sections))); 
-                int blue = std::min(255, 50 + ((nb_sections - 1 - i) * (50 / nb_sections)));  
-                section_color.setRgb(red, green, blue);
-            } else
+                endColor = QColor(0, 60, 40); // slightly brighter cyan-green
+            }
+            else
             {
-                int red = std::max(0, 120 - ((nb_sections - 1 - i) * (255 / nb_sections)));         
-                int green = std::min(255, 80 + ((nb_sections - 1 - i) * (20 / nb_sections))); 
-                int blue = std::min(255, 50 + ((nb_sections - 1 - i) * (50 / nb_sections)));
-                section_color.setRgb(red, green, blue);
-            } 
+                startColor = QColor(80, 20, 0);
+                endColor = QColor(50, 10, 0);
+            }
+            // Interpolate based on **active section index** (0 = leftmost active)
+            int activeIndex = i - (nb_sections - sections_color);  // 0..sections_active-1
+            float t = (sections_color > 1) ? float(activeIndex) / (sections_color - 1) : 0.0f;   // 0..1
+
+            int red   = startColor.red()   + t * (endColor.red()   - startColor.red());
+            int green = startColor.green() + t * (endColor.green() - startColor.green());
+            int blue  = startColor.blue()  + t * (endColor.blue()  - startColor.blue());
+
+            QColor section_color(red, green, blue);  // correct: QColor object
             sections[i]->setStyleSheet(QString("background-color: %1").arg(section_color.name()));
+
+
         } else
         {
             QColor inactive_color(22, 32, 60); 
@@ -64,18 +76,22 @@ void Autonomy::set_autonomy(int aut)
         }
     }
     label->setTextFormat(Qt::RichText); // Enable rich text
-    label->setText("<span style='font-family: Digital-7; font-size: 27px;'>" + QString::number(aut) + 
-        "</span><span style='font-family: Calculator; font-size: 27px;'> km</span>");
+    label->setText("<span style='font-family: Digital-7; font-size: 30px;'>" + QString::number(aut) + 
+        "</span><span style='font-family: Calculator; font-size: 30px;'> km</span>");
     label->setStyleSheet("color: rgb(0, 120, 140);");
-    label->setAlignment(Qt::AlignTop | Qt::AlignRight);
+    label->setAlignment(Qt::AlignRight);
     label->setContentsMargins(0, 0, 5, 0);
-    main_layout->addWidget(label);
 }
 
 // getters
 int Autonomy::get_nbsections()
 {
     return nb_sections;
+}
+
+int Autonomy::get_autonomy()
+{
+    return autonomy;
 }
 
 QVector<QWidget*> Autonomy::get_sections()

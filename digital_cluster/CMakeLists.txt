@@ -26,8 +26,12 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
 option(USE_SANITIZER "Enable sanitizer" OFF)
 
 if(USE_SANITIZER)
-  set(SANITIZER_COMPILE_FLAGS -fsanitize=address -fno-omit-frame-pointer)
+#   set(SANITIZER_COMPILE_FLAGS -fsanitize=address -fno-omit-frame-pointer)
   set(SANITIZER_LINK_FLAGS -fsanitize=address)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${SANITIZER_COMPILE_FLAGS}")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SANITIZER_COMPILE_FLAGS}")
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${SANITIZER_LINK_FLAGS}")
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${SANITIZER_LINK_FLAGS}")
   # set(SANITIZER_FLAGS -fsanitize=thread) # Uncomment this line if you want ThreadSanitizer instead:
 endif()
 

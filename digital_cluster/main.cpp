@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     app = &a;
     a.setAttribute(Qt::AA_UseHighDpiPixmaps);
-    a.setOverrideCursor(QCursor(Qt::BlankCursor));
+    QApplication::setOverrideCursor(Qt::BlankCursor);
     MainWindow window;
     window.setFixedSize(1280, 400);
     window.setWindowState(Qt::WindowFullScreen);
@@ -22,6 +22,7 @@ int main(int argc, char *argv[]) {
     std::signal(SIGINT, cleanup);
     std::signal(SIGTSTP, cleanup);
     int result = a.exec();
+    QApplication::restoreOverrideCursor();
     app = nullptr;
     return result;
 }

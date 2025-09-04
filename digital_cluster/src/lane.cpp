@@ -4,14 +4,13 @@ Lane::Lane(QWidget *parent) : QWidget(parent), lane(1)
 {
     if (parent)
     {
-        setMinimumSize(parent->width() * 0.4, parent->height() * 0.4);
-        setMaximumSize(parent->width() * 0.4, parent->height() * 0.4);
+        setMinimumSize(parent->width() * 0.5, parent->height() * 0.5);
     }
     QString path = QCoreApplication::applicationDirPath();
     QString digital_path = QDir(path).filePath("../fonts_icon/sports.png");
     digital_path = QDir::cleanPath(digital_path);
     pixmap = QPixmap(digital_path);
-    pixmap = pixmap.scaled(this->width() * 0.4, height() * 0.7, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    pixmap = pixmap.scaled(this->width() * 0.4 , height() * 0.5, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     animationTimer = new QTimer(this);
     connect(animationTimer, &QTimer::timeout, this, [this]() {
         m_leftDashOffset = int(m_leftDashOffset + 1) % 30;
@@ -30,14 +29,14 @@ void Lane::setters()
 
     laneGradient = QLinearGradient(0, height() * 0.9, 0, 0);
     laneGradient.setColorAt(0.0, QColor(20, 20, 20, 20));
-    laneGradient.setColorAt(0.4, QColor(100, 100, 100, 100));
-    laneGradient.setColorAt(0.5, QColor(100, 100, 100, 100));
+    laneGradient.setColorAt(0.4, QColor(150, 150, 150, 150));
+    laneGradient.setColorAt(0.5, QColor(150, 150, 150, 150));
     laneGradient.setColorAt(1.0, QColor(20, 20, 20, 1));
 
     redGradient = QLinearGradient(0, height() * 0.9, 0, 0);
     redGradient.setColorAt(0.0, QColor(50, 5, 0, 50));
-    redGradient.setColorAt(0.4, QColor(180, 20, 0, 150));
-    redGradient.setColorAt(0.6, QColor(180, 20, 0, 150));
+    redGradient.setColorAt(0.4, QColor(200, 30, 0, 150));
+    redGradient.setColorAt(0.6, QColor(200, 30, 0, 150));
     redGradient.setColorAt(1.0, QColor(50, 5, 0, 50));
 
     leftGrayPen = QPen(QBrush(laneGradient), 5, Qt::DashLine);
@@ -59,10 +58,10 @@ void Lane::showNoLanePopup()
         QHBoxLayout *layout = new QHBoxLayout(popup);
         QLabel *iconLabel = new QLabel(popup);
         QPixmap warningIcon(digital_path);
-        iconLabel->setPixmap(warningIcon.scaled(22, 22, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+        iconLabel->setPixmap(warningIcon.scaled(30, 30, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
         QLabel *textLabel = new QLabel(" Take manual control", popup);
-        textLabel->setStyleSheet("color: gray; font-size: 16px;");
+        textLabel->setStyleSheet("color: gray; font-size: 20px;");
         layout->addWidget(iconLabel, 0, Qt::AlignTop | Qt::AlignCenter);
         layout->addWidget(textLabel, 0, Qt::AlignCenter);
         popup->setLayout(layout);
@@ -87,6 +86,7 @@ void Lane::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
+    
     QRect rect = QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, pixmap.size(), this->rect());
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
     painter.drawPixmap(rect, pixmap);
