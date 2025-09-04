@@ -6,6 +6,8 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QDir>
+#include <cmath> 
+#include <algorithm>
 #include <iostream>
 #include <QCoreApplication>
 

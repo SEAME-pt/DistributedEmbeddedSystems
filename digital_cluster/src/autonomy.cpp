@@ -40,7 +40,7 @@ Autonomy::~Autonomy()
 void Autonomy::set_autonomy(int aut)
 {
     autonomy = aut;
-    int sections_color = static_cast<int>((aut / 10.0) * nb_sections);
+    int sections_color = std::max(1, static_cast<int>(std::ceil((aut / 10.0) * nb_sections)));
     for (int i = nb_sections -1; i >= 0; i--)
     {
         if (i >= nb_sections - sections_color)

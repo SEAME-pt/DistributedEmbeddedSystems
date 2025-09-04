@@ -70,7 +70,8 @@ void Speed::paint_text(QPainter &painter) {
 }
 
 void Speed::set_current(float n) {
-    current = n * 3.6;
+    
+     = n * 3.6;
     float new_target = (current * 270.0f) / max;
     new_target = std::min(new_target, 270.0f);
     if (std::abs(new_target - target_angle) > 1.0f) {  
